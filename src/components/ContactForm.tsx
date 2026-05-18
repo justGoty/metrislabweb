@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CircleCheck as CheckCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import Logo from './Logo';
 
 export default function ContactForm() {
   const { t } = useTranslation();
@@ -32,7 +33,7 @@ export default function ContactForm() {
     <section id="contact" className="py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-14 flex justify-center">
-          <img src="/metrislogo.svg" alt="Metris Lab" className="h-20 w-auto" />
+          <Logo height={60} scheme="light" />
         </div>
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           <div>

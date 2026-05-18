@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import Logo from './Logo';
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ export default function Hero() {
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-32 w-full">
         <div className="mb-12 flex justify-center lg:justify-start hero-fade-up" style={{ animationDelay: '0ms' }}>
-          <img src="/metrislogo.svg" alt="Metris Lab" className="h-20 w-auto" />
+          <Logo height={60} scheme="light" />
         </div>
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="hero-fade-left" style={{ animationDelay: '80ms' }}>
