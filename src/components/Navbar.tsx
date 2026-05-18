@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import Logo from './Logo';
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
@@ -30,7 +31,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <a href="#" className="flex items-center flex-shrink-0">
-            <img src="/metrislogo.svg" alt="Metris Lab" className="h-16 w-auto" />
+            <Logo height={48} scheme="light" />
           </a>
 
           <nav className="hidden md:flex items-center gap-6">

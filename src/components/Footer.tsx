@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import Logo from './Logo';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -8,7 +9,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-10 justify-between mb-12">
           <div className="max-w-xs">
-            <img src="/metrislogo.svg" alt="Metris Lab" className="h-12 w-auto opacity-90 mb-4" />
+            <Logo height={36} scheme="dark" className="opacity-90 mb-4" />
             <p className="text-slate-400 text-sm leading-relaxed">
               ООО "МэтрисЛаб" <br></br>
               ИНН 5012117115 <br></br>
@@ -37,7 +38,7 @@ export default function Footer() {
 
         <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <img src="/metrislogo.svg" alt="Metris Lab" className="h-8 w-auto opacity-40" />
+            <Logo height={28} scheme="dark" className="opacity-40" />
             <span className="text-slate-500 text-sm">© {new Date().getFullYear()} {t('footer.copyright')}</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-slate-500">
