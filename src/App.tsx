@@ -6,12 +6,14 @@ import Advantages from './components/Advantages';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import ParallaxBackground from './components/ParallaxBackground';
 
 function App() {
   return (
     <>
+      <ParallaxBackground />
       <Navbar />
-      <main>
+      <main className="relative z-10">
         <Hero />
         <About />
         <Services />
