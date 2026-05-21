@@ -5,6 +5,7 @@ import Services from './components/Services';
 import Advantages from './components/Advantages';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <ContactForm />
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 }
