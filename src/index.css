@@ -1,4 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700;800&family=Onest:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
+
+:root {
+  --brand-navy: #0b3a5b;
+  --brand-blue: #1d9bf0;
+  --brand-orange: #ff8a00;
+  --brand-ice: #f6fafd;
+  --brand-text: #0f172a;
+}
 
 @layer base {
   html {
@@ -6,8 +15,13 @@
   }
   body {
     margin: 0;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Onest', system-ui, -apple-system, sans-serif;
+    color: var(--brand-text);
     -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    font-family: 'Geologica', 'Onest', system-ui, -apple-system, sans-serif;
+    letter-spacing: 0;
   }
   #root {
     width: 100%;
@@ -17,11 +31,11 @@
 
 /* ===== Hero entrance animations ===== */
 @keyframes fadeLeft {
-  from { opacity: 0; transform: translateX(-36px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateX(0); }
 }
 @keyframes fadeRight {
-  from { opacity: 0; transform: translateX(36px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateX(0); }
 }
 @keyframes fadeUp {
@@ -46,12 +60,12 @@
 }
 .reveal-left {
   opacity: 0;
-  transform: translateX(-40px);
+  transform: translateY(28px);
   transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal-right {
   opacity: 0;
-  transform: translateX(40px);
+  transform: translateY(28px);
   transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal-up.revealed,
@@ -106,7 +120,7 @@
   100% { background-position: 200% center; }
 }
 .text-shimmer {
-  background: linear-gradient(90deg, #1e293b 0%, #2563eb 40%, #1e293b 80%);
+  background: linear-gradient(90deg, var(--brand-navy) 0%, var(--brand-orange) 42%, var(--brand-blue) 78%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -124,7 +138,7 @@
   position: absolute;
   inset: -2px;
   border-radius: inherit;
-  background: linear-gradient(45deg, #2563eb, #0ea5e9, #2563eb);
+  background: linear-gradient(45deg, var(--brand-orange), var(--brand-blue), var(--brand-orange));
   opacity: 0;
   transition: opacity 0.3s;
   z-index: -1;
@@ -140,7 +154,7 @@
 }
 .card-hover:hover {
   transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 20px 40px -12px rgba(37, 99, 235, 0.12);
+  box-shadow: 0 20px 40px -12px rgba(11, 58, 91, 0.16);
 }
 
 /* ===== Gradient border card ===== */
@@ -155,7 +169,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, #e2e8f0, #2563eb, #e2e8f0);
+  background: linear-gradient(135deg, #e2e8f0, var(--brand-blue), var(--brand-orange));
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   opacity: 0;
@@ -171,7 +185,7 @@
 }
 .input-animated:focus {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.15);
+  box-shadow: 0 4px 12px -2px rgba(29, 155, 240, 0.18);
 }
 
 /* ===== Parallax image wrapper ===== */
@@ -224,5 +238,5 @@
 /* ===== Divider gradient line ===== */
 .section-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, #cbd5e1 30%, #2563eb 50%, #cbd5e1 70%, transparent);
+  background: linear-gradient(90deg, transparent, #cbd5e1 30%, var(--brand-orange) 50%, #cbd5e1 70%, transparent);
 }

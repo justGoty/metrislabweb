@@ -70,14 +70,15 @@ export default function ParallaxBackground() {
         ctx.globalAlpha = 0.12 + Math.sin(time * 0.5 + el.phase) * 0.06;
 
         if (el.type === 0) {
-          ctx.beginPath();
-          ctx.arc(drawX, drawY, el.size, 0, Math.PI * 2);
-          ctx.fillStyle = '#2563eb';
-          ctx.fill();
+          ctx.fillStyle = '#1d9bf0';
+          ctx.fillRect(drawX, drawY, el.size * 2, el.size * 2);
         } else if (el.type === 1) {
           ctx.beginPath();
-          ctx.arc(drawX, drawY, el.size * 1.5, 0, Math.PI * 2);
-          ctx.strokeStyle = '#2563eb';
+          ctx.moveTo(drawX - el.size * 2, drawY);
+          ctx.lineTo(drawX + el.size * 2, drawY);
+          ctx.moveTo(drawX, drawY - el.size * 2);
+          ctx.lineTo(drawX, drawY + el.size * 2);
+          ctx.strokeStyle = '#ff8a00';
           ctx.lineWidth = 1;
           ctx.stroke();
         } else {
@@ -85,7 +86,7 @@ export default function ParallaxBackground() {
           ctx.save();
           ctx.translate(drawX, drawY);
           ctx.rotate(time * 0.3 + el.phase);
-          ctx.strokeStyle = '#0ea5e9';
+          ctx.strokeStyle = '#0b3a5b';
           ctx.lineWidth = 1;
           ctx.strokeRect(-s, -s, s * 2, s * 2);
           ctx.restore();
@@ -109,18 +110,15 @@ export default function ParallaxBackground() {
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
-        ctx.strokeStyle = '#2563eb';
+        ctx.strokeStyle = '#1d9bf0';
         ctx.lineWidth = 1;
         ctx.stroke();
 
         ctx.globalAlpha = 0.1;
         ctx.beginPath();
-        ctx.arc(x1, y1, 2, 0, Math.PI * 2);
-        ctx.fillStyle = '#2563eb';
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(x2, y2, 2, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.fillStyle = '#ff8a00';
+        ctx.fillRect(x1 - 1, y1 - 1, 2, 2);
+        ctx.fillRect(x2 - 1, y2 - 1, 2, 2);
       });
 
       ctx.globalAlpha = 1;

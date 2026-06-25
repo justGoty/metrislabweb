@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, Phone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
 
@@ -19,6 +19,7 @@ export default function Navbar() {
     { label: t('nav.about'), href: '#about' },
     { label: t('nav.services'), href: '#services' },
     { label: t('nav.advantages'), href: '#advantages' },
+    { label: t('faq.label'), href: '#faq' },
     { label: t('nav.contact'), href: '#contact' },
   ];
 
@@ -39,8 +40,8 @@ export default function Navbar() {
               <a
                 key={l.href}
                 href={l.href}
-                className={`text-sm font-medium transition-colors hover:text-blue-600 ${
-                  scrolled ? 'text-slate-700' : 'text-slate-800'
+                className={`text-sm font-medium transition-colors hover:text-[#ff8a00] ${
+                  scrolled ? 'text-slate-700' : 'text-[#0b3a5b]'
                 }`}
               >
                 {l.label}
@@ -52,21 +53,21 @@ export default function Navbar() {
                 onClick={() => setLangOpen(!langOpen)}
                 onBlur={() => setTimeout(() => setLangOpen(false), 150)}
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-slate-800 hover:bg-white/20'
+                  scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-[#0b3a5b] hover:bg-white/40'
                 }`}
               >
                 <Globe size={15} />
                 <span className="uppercase">{i18n.language.slice(0, 2)}</span>
               </button>
               {langOpen && (
-                <div className="absolute top-full right-0 mt-1 bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden z-50 min-w-[110px]">
+                <div className="absolute top-full right-0 mt-1 bg-white rounded-lg shadow-lg border border-slate-100 overflow-hidden z-50 min-w-[110px]">
                   {['en', 'ru'].map((lang) => (
                     <button
                       key={lang}
                       onClick={() => { i18n.changeLanguage(lang); setLangOpen(false); }}
                       className={`block w-full text-left px-4 py-2.5 text-sm transition-colors ${
                         i18n.language.startsWith(lang)
-                          ? 'bg-blue-50 text-blue-600 font-semibold'
+                          ? 'bg-[#f6fafd] text-[#0b3a5b] font-semibold'
                           : 'text-slate-700 hover:bg-slate-50'
                       }`}
                     >
@@ -78,8 +79,16 @@ export default function Navbar() {
             </div>
 
             <a
+              href="tel:+79775299213"
+              className="hidden lg:inline-flex items-center gap-2 text-sm font-semibold text-[#0b3a5b] hover:text-[#ff8a00] transition-colors"
+            >
+              <Phone size={15} />
+              +7 (977) 529-92-13
+            </a>
+
+            <a
               href="#contact"
-              className="px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors"
+              className="px-5 py-2.5 bg-[#ff8a00] text-white text-sm font-semibold rounded-lg hover:bg-[#e67600] transition-colors shadow-sm"
             >
               {t('nav.cta')}
             </a>
@@ -87,7 +96,7 @@ export default function Navbar() {
 
           <button
             className={`md:hidden p-2 rounded-lg transition-colors ${
-              scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-slate-800 hover:bg-white/20'
+              scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-[#0b3a5b] hover:bg-white/40'
             }`}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
@@ -104,7 +113,7 @@ export default function Navbar() {
               key={l.href}
               href={l.href}
               onClick={() => setMobileOpen(false)}
-              className="text-slate-700 font-medium hover:text-blue-600 transition-colors"
+              className="text-slate-700 font-medium hover:text-[#ff8a00] transition-colors"
             >
               {l.label}
             </a>
@@ -116,7 +125,7 @@ export default function Navbar() {
                 onClick={() => { i18n.changeLanguage(lang); setMobileOpen(false); }}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   i18n.language.startsWith(lang)
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-[#0b3a5b] text-white'
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                 }`}
               >
@@ -125,9 +134,15 @@ export default function Navbar() {
             ))}
           </div>
           <a
+            href="tel:+79775299213"
+            className="text-[#0b3a5b] font-semibold"
+          >
+            +7 (977) 529-92-13
+          </a>
+          <a
             href="#contact"
             onClick={() => setMobileOpen(false)}
-            className="px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors text-center"
+            className="px-5 py-2.5 bg-[#ff8a00] text-white text-sm font-semibold rounded-lg hover:bg-[#e67600] transition-colors text-center"
           >
             {t('nav.cta')}
           </a>

@@ -14,8 +14,8 @@ export default function Logo({ className = '', scheme = 'light', height = 48 }: 
 
   const nameText = isRu ? 'МЭТРИС' : 'METRIS';
   const subText = isRu ? 'ЛАБ' : 'LAB';
-  const textColor = scheme === 'dark' ? '#e2e8f0' : '#0f172a';
-  const subColor = scheme === 'dark' ? '#94a3b8' : '#64748b';
+  const textColor = scheme === 'dark' ? '#f8fafc' : '#0b3a5b';
+  const subColor = scheme === 'dark' ? '#cbd5e1' : '#ff8a00';
 
   // Width scales with the name text length
   const width = height * (isRu ? 4.8 : 4.4);
@@ -41,7 +41,7 @@ export default function Logo({ className = '', scheme = 'light', height = 48 }: 
       className={className}
       aria-label={isRu ? 'Мэтрис Лаб' : 'Metris Lab'}
     >
-      <rect width={iconW} height={iconH} x={iconX} y={iconY} rx={rx} fill="#2563eb" />
+      <rect width={iconW} height={iconH} x={iconX} y={iconY} rx={rx} fill="#0b3a5b" />
       <path
         d={`M${14 * scale} ${34 * scale} L${20 * scale} ${14 * scale} L${28 * scale} ${28 * scale} L${36 * scale} ${14 * scale} L${42 * scale} ${34 * scale}`}
         stroke="white"
@@ -53,22 +53,22 @@ export default function Logo({ className = '', scheme = 'light', height = 48 }: 
       <text
         x={textX}
         y={textY1}
-        fontFamily="system-ui, -apple-system, sans-serif"
+        fontFamily="Geologica, Onest, system-ui, -apple-system, sans-serif"
         fontSize={fontSize1}
         fontWeight="700"
         fill={textColor}
-        letterSpacing={-0.5 * scale}
+        letterSpacing={0}
       >
         {nameText}
       </text>
       <text
         x={textX}
         y={textY2}
-        fontFamily="system-ui, -apple-system, sans-serif"
+        fontFamily="Onest, system-ui, -apple-system, sans-serif"
         fontSize={fontSize2}
         fontWeight="500"
         fill={subColor}
-        letterSpacing={3 * scale}
+        letterSpacing={0}
       >
         {subText}
       </text>

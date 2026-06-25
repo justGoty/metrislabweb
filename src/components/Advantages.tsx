@@ -1,42 +1,6 @@
 import { Target, Shield, Zap, Award, FileText, Calendar } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '../lib/useScrollReveal';
-import { useEffect, useRef, useState } from 'react';
-
-function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true;
-          const duration = 1800;
-          const start = performance.now();
-          const animate = (now: number) => {
-            const progress = Math.min((now - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.round(eased * target * 10) / 10);
-            if (progress < 1) requestAnimationFrame(animate);
-          };
-          requestAnimationFrame(animate);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [target]);
-
-  return <span ref={ref}>{count.toFixed(1)}{suffix}</span>;
-}
-
 export default function Advantages() {
   const { t } = useTranslation();
   const leftRef = useScrollReveal();
@@ -59,30 +23,28 @@ export default function Advantages() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           <div ref={leftRef} className="reveal-left">
-            <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">
+            <p className="text-[#ff8a00] font-semibold text-sm uppercase mb-3">
               {t('advantages.label')}
             </p>
             <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-8">
               {t('advantages.headline')}{' '}
-              <span className="text-blue-600">{t('advantages.highlight')}</span>
+              <span className="text-[#0b3a5b]">{t('advantages.highlight')}</span>
             </h2>
 
-            <div className="bg-slate-900 text-white rounded-3xl p-8 relative overflow-hidden group cursor-default">
+            <div className="bg-[#0b3a5b] text-white rounded-lg p-8 relative overflow-hidden group cursor-default shadow-xl shadow-slate-200/50">
               {/* Decorative animated circles */}
-              <div className="absolute -top-8 -right-8 w-40 h-40 bg-blue-600/10 rounded-full group-hover:scale-125 transition-transform duration-700" />
-              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-blue-400/10 rounded-full group-hover:scale-150 transition-transform duration-700" />
-              <div className="absolute top-4 right-4 w-2 h-2 bg-blue-400/40 rounded-full particle-2" />
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#ff8a00] to-[#1d9bf0]" />
 
-              <p className="relative text-6xl font-black text-blue-400 mb-2">
-                <AnimatedCounter target={99.8} suffix="%" />
+              <p className="relative text-7xl font-black text-[#ff8a00] mb-4 leading-none">
+                {t('advantages.stat_value')}
               </p>
-              <p className="relative text-slate-300 text-sm leading-relaxed">
+              <p className="relative text-white text-base leading-7 font-medium max-w-lg">
                 {t('advantages.stat_desc')}
               </p>
 
               {/* Progress bar visual */}
-              <div className="relative mt-4 h-1.5 bg-slate-700 rounded-full overflow-hidden">
-                <div className="absolute inset-y-0 left-0 w-[99.8%] bg-gradient-to-r from-blue-500 to-sky-400 rounded-full" />
+              <div className="relative mt-6 h-1.5 bg-white/15 rounded-full overflow-hidden">
+                <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-[#ff8a00] to-[#1d9bf0] rounded-full" />
               </div>
             </div>
           </div>
@@ -91,11 +53,11 @@ export default function Advantages() {
             {items.map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.title} className="group p-4 rounded-xl hover:bg-slate-50 transition-all duration-300 cursor-default">
-                  <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center mb-3 group-hover:bg-blue-100 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                    <Icon size={18} className="text-blue-600" />
+                <div key={item.title} className="group p-4 rounded-lg hover:bg-[#f6fafd] transition-all duration-300 cursor-default">
+                  <div className="w-10 h-10 bg-[#eef8ff] rounded-lg flex items-center justify-center mb-3 group-hover:bg-orange-50 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                    <Icon size={18} className="text-[#0b3a5b] group-hover:text-[#ff8a00]" />
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1.5 group-hover:text-blue-600 transition-colors">{item.title}</h3>
+                  <h3 className="text-base font-bold text-slate-900 mb-1.5 group-hover:text-[#0b3a5b] transition-colors">{item.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
                 </div>
               );

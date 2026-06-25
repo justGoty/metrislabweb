@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  <url>
+    <loc>https://metrislab.ru/</loc>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://metrislab.ru/images/gas-analyzer-service-lab.png</image:loc>
+      <image:caption>Поверка, диагностика и ремонт газоанализаторов в лаборатории</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://metrislab.ru/images/gas-analyzers/mirax-atom.png</image:loc>
+      <image:caption>Стационарный газоанализатор MIRAX SAFETY ATOM</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://metrislab.ru/images/gas-analyzers/stacom-sta-kd1-adobe.png</image:loc>
+      <image:caption>Стационарный газоанализатор СТА-КД1</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://metrislab.ru/images/gas-analyzers/kip-mg1.png</image:loc>
+      <image:caption>Портативный газоанализатор КИП-МГ1</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://metrislab.ru/images/gas-analyzers/kip-mg4-clean.png</image:loc>
+      <image:caption>Портативный газоанализатор КИП-МГ4</image:caption>
+    </image:image>
+  </url>
+</urlset>
