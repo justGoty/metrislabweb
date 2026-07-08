@@ -98,6 +98,7 @@ export default function ContactForm() {
                       <input
                         type="text"
                         required
+                        placeholder={t('contact.form_name_placeholder')}
                         className="input-animated w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1d9bf0] focus:border-transparent"
                       />
                     </div>
@@ -108,6 +109,7 @@ export default function ContactForm() {
                       <input
                         type="email"
                         required
+                        placeholder={t('contact.form_email_placeholder')}
                         className="input-animated w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1d9bf0] focus:border-transparent"
                       />
                     </div>
@@ -119,6 +121,7 @@ export default function ContactForm() {
                       </label>
                       <input
                         type="tel"
+                        placeholder={t('contact.form_phone_placeholder')}
                         className="input-animated w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1d9bf0] focus:border-transparent"
                       />
                     </div>
@@ -128,6 +131,7 @@ export default function ContactForm() {
                       </label>
                       <input
                         type="text"
+                        placeholder={t('contact.form_company_placeholder')}
                         className="input-animated w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1d9bf0] focus:border-transparent"
                       />
                     </div>
@@ -139,6 +143,7 @@ export default function ContactForm() {
                       </label>
                       <input
                         type="text"
+                        placeholder={t('contact.form_model_placeholder')}
                         className="input-animated w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1d9bf0] focus:border-transparent"
                       />
                     </div>
@@ -149,6 +154,7 @@ export default function ContactForm() {
                       <input
                         type="number"
                         min="1"
+                        placeholder={t('contact.form_count_placeholder')}
                         className="input-animated w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1d9bf0] focus:border-transparent"
                       />
                     </div>
