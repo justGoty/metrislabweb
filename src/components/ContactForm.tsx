@@ -11,6 +11,7 @@ export default function ContactForm() {
   const [error, setError] = useState('');
   const headingRef = useScrollReveal();
   const formRef = useScrollReveal();
+  const selectedModel = new URLSearchParams(window.location.search).get('model') ?? '';
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -143,6 +144,8 @@ export default function ContactForm() {
                       </label>
                       <input
                         type="text"
+                        name="model"
+                        defaultValue={selectedModel}
                         placeholder={t('contact.form_model_placeholder')}
                         className="input-animated w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1d9bf0] focus:border-transparent"
                       />

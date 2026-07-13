@@ -1,12 +1,11 @@
 import { ArrowRight, ChevronDown, ClipboardCheck, Gauge, Wrench } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import Logo from './Logo';
 
 export default function Hero() {
   const { t } = useTranslation();
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#f6fafd] pt-20">
+    <section className="relative min-h-[100svh] flex items-center overflow-hidden bg-[#f6fafd] pt-20">
       {/* Technical grid */}
       <div className="absolute inset-0 pointer-events-none">
         <div
@@ -30,19 +29,16 @@ export default function Hero() {
         <div className="particle-3 absolute top-[80%] left-[70%] w-1.5 h-1.5 bg-blue-400/25 rounded-full" style={{ animationDelay: '2s' }} />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-32 w-full">
-        <div className="mb-12 flex justify-center lg:justify-start hero-fade-up" style={{ animationDelay: '0ms' }}>
-          <Logo height={60} scheme="light" />
-        </div>
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-16 sm:py-20 xl:py-28 w-full">
+        <div className="grid xl:grid-cols-[minmax(0,1.08fr)_minmax(360px,0.92fr)] gap-16 items-center">
           <div className="hero-fade-left min-w-0" style={{ animationDelay: '80ms' }}>
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#1d9bf0]/20 rounded-lg text-[#0b3a5b] text-sm font-semibold mb-6 shadow-sm">
               <span className="relative w-2 h-2 bg-[#ff8a00] rounded-full pulse-ring" />
               {t('hero.badge')}
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#0b3a5b] leading-tight mb-6 max-w-full [overflow-wrap:anywhere]">
+            <h1 className="text-3xl sm:text-5xl xl:text-6xl font-bold text-[#0b3a5b] leading-tight mb-6 max-w-4xl">
               {t('hero.headline')}{' '}
-              <span className="text-shimmer relative [overflow-wrap:anywhere]">
+              <span className="text-shimmer relative inline-block whitespace-nowrap">
                 {t('hero.subheading')}
                 <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-[#ff8a00] to-[#1d9bf0] rounded-full" />
               </span>
@@ -59,7 +55,7 @@ export default function Hero() {
                 <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
               </a>
               <a
-                href="#analyzers"
+                href="/catalog"
                 className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-[#0b3a5b] font-semibold rounded-lg border border-[#1d9bf0]/20 hover:border-[#1d9bf0] hover:bg-[#1d9bf0]/5 active:scale-95 transition-all"
               >
                 {t('hero.cta_secondary')}
@@ -80,7 +76,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="hero-fade-right hidden lg:flex items-center justify-center" style={{ animationDelay: '200ms' }}>
+          <div className="hero-fade-right hidden xl:flex items-center justify-center" style={{ animationDelay: '200ms' }}>
             <div className="relative w-full max-w-md">
               <div className="relative bg-white rounded-lg shadow-xl shadow-slate-200/80 p-8 border border-[#1d9bf0]/15 space-y-4">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-5">
