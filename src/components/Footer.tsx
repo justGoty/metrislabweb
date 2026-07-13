@@ -4,6 +4,8 @@ import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 
 export default function Footer() {
   const { t } = useTranslation();
+  const isHomePage = window.location.pathname === '/';
+  const homeHref = (anchor: string) => (isHomePage ? anchor : `/${anchor}`);
 
   return (
     <footer className="bg-[#0b3a5b] text-white py-16 relative overflow-hidden">
@@ -54,14 +56,14 @@ export default function Footer() {
             <p className="text-slate-300 font-semibold mb-4">{t('footer.services')}</p>
             <div className="grid sm:grid-cols-2 gap-3 text-sm">
               {[t('footer.service1'), t('footer.service2'), t('footer.service3'), t('footer.service4')].map((item) => (
-                <a key={item} href="#services" className="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+                <a key={item} href={homeHref('#services')} className="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
                   <ArrowRight size={14} className="text-[#ff8a00] group-hover:translate-x-1 transition-transform" />
                   {item}
                 </a>
               ))}
             </div>
             <a
-              href="#contact"
+              href={homeHref('#contact')}
               className="mt-6 inline-flex items-center gap-2 px-5 py-3 bg-[#ff8a00] text-white text-sm font-semibold rounded-lg hover:bg-[#e67600] transition-colors"
             >
               {t('nav.cta')}
@@ -76,10 +78,11 @@ export default function Footer() {
             <span className="text-slate-500 text-sm">&copy; {new Date().getFullYear()} {t('footer.copyright')}</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-slate-400">
-            <a href="#about" className="hover:text-white transition-colors duration-300">{t('nav.about')}</a>
-            <a href="#services" className="hover:text-white transition-colors duration-300">{t('nav.services')}</a>
-            <a href="#faq" className="hover:text-white transition-colors duration-300">{t('faq.label')}</a>
-            <a href="#contact" className="hover:text-white transition-colors duration-300">{t('nav.contact')}</a>
+            <a href={homeHref('#about')} className="hover:text-white transition-colors duration-300">{t('nav.about')}</a>
+            <a href="/catalog" className="hover:text-white transition-colors duration-300">{t('nav.catalog')}</a>
+            <a href={homeHref('#services')} className="hover:text-white transition-colors duration-300">{t('nav.services')}</a>
+            <a href={homeHref('#faq')} className="hover:text-white transition-colors duration-300">{t('faq.label')}</a>
+            <a href={homeHref('#contact')} className="hover:text-white transition-colors duration-300">{t('nav.contact')}</a>
           </div>
         </div>
       </div>

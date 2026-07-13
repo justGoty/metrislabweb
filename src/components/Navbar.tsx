@@ -8,6 +8,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const isHomePage = window.location.pathname === '/';
+  const homeHref = (anchor: string) => (isHomePage ? anchor : `/${anchor}`);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -16,11 +18,12 @@ export default function Navbar() {
   }, []);
 
   const links = [
-    { label: t('nav.about'), href: '#about' },
-    { label: t('nav.services'), href: '#services' },
-    { label: t('nav.advantages'), href: '#advantages' },
-    { label: t('faq.label'), href: '#faq' },
-    { label: t('nav.contact'), href: '#contact' },
+    { label: t('nav.about'), href: homeHref('#about') },
+    { label: t('nav.services'), href: homeHref('#services') },
+    { label: t('nav.catalog'), href: '/catalog' },
+    { label: t('nav.advantages'), href: homeHref('#advantages') },
+    { label: t('faq.label'), href: homeHref('#faq') },
+    { label: t('nav.contact'), href: homeHref('#contact') },
   ];
 
   return (
@@ -31,11 +34,11 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <a href="#" className="flex items-center flex-shrink-0">
+          <a href="/" className="flex items-center flex-shrink-0">
             <Logo height={48} scheme="light" />
           </a>
 
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden xl:flex items-center gap-6">
             {links.map((l) => (
               <a
                 key={l.href}
@@ -80,14 +83,14 @@ export default function Navbar() {
 
             <a
               href="tel:+79775299213"
-              className="hidden lg:inline-flex items-center gap-2 text-sm font-semibold text-[#0b3a5b] hover:text-[#ff8a00] transition-colors"
+              className="hidden 2xl:inline-flex items-center gap-2 text-sm font-semibold text-[#0b3a5b] hover:text-[#ff8a00] transition-colors"
             >
               <Phone size={15} />
               +7 (977) 529-92-13
             </a>
 
             <a
-              href="#contact"
+              href={homeHref('#contact')}
               className="px-5 py-2.5 bg-[#ff8a00] text-white text-sm font-semibold rounded-lg hover:bg-[#e67600] transition-colors shadow-sm"
             >
               {t('nav.cta')}
@@ -95,7 +98,7 @@ export default function Navbar() {
           </nav>
 
           <button
-            className={`md:hidden p-2 rounded-lg transition-colors ${
+            className={`xl:hidden p-2 rounded-lg transition-colors ${
               scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-[#0b3a5b] hover:bg-white/40'
             }`}
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -107,7 +110,7 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-slate-100 px-6 py-5 flex flex-col gap-4">
+        <div className="xl:hidden bg-white border-t border-slate-100 px-6 py-5 flex flex-col gap-4">
           {links.map((l) => (
             <a
               key={l.href}
@@ -140,7 +143,7 @@ export default function Navbar() {
             +7 (977) 529-92-13
           </a>
           <a
-            href="#contact"
+            href={homeHref('#contact')}
             onClick={() => setMobileOpen(false)}
             className="px-5 py-2.5 bg-[#ff8a00] text-white text-sm font-semibold rounded-lg hover:bg-[#e67600] transition-colors text-center"
           >

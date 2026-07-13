@@ -1,42 +1,12 @@
 import { ArrowRight, BadgeCheck, SearchCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '../lib/useScrollReveal';
+import { gasAnalyzers } from '../data/gasAnalyzers';
 
 export default function GasAnalyzerModels() {
   const { t } = useTranslation();
   const headingRef = useScrollReveal();
   const gridRef = useScrollReveal();
-
-  const models = [
-    {
-      name: t('analyzers.model1'),
-      type: t('analyzers.type_stationary'),
-      desc: t('analyzers.model1_desc'),
-      image: '/images/gas-analyzers/mirax-atom.png',
-      alt: 'Стационарный газоанализатор MIRAX SAFETY ATOM',
-    },
-    {
-      name: t('analyzers.model2'),
-      type: t('analyzers.type_stationary'),
-      desc: t('analyzers.model2_desc'),
-      image: '/images/gas-analyzers/stacom-sta-kd1-adobe.png',
-      alt: 'Стационарный газоанализатор СТА-КД1',
-    },
-    {
-      name: t('analyzers.model3'),
-      type: t('analyzers.type_portable'),
-      desc: t('analyzers.model3_desc'),
-      image: '/images/gas-analyzers/kip-mg1.png',
-      alt: 'Портативный газоанализатор КИП-МГ1',
-    },
-    {
-      name: t('analyzers.model4'),
-      type: t('analyzers.type_portable'),
-      desc: t('analyzers.model4_desc'),
-      image: '/images/gas-analyzers/kip-mg4-clean.png',
-      alt: 'Портативный газоанализатор КИП-МГ4',
-    },
-  ];
 
   return (
     <section id="analyzers" className="py-24 bg-white overflow-hidden">
@@ -56,15 +26,18 @@ export default function GasAnalyzerModels() {
         </div>
 
         <div ref={gridRef} className="stagger-children grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {models.map((model) => (
+          {gasAnalyzers.map((model) => {
+            const name = t(model.nameKey);
+            const type = t(`analyzers.type_${model.type}`);
+            return (
             <article
-              key={model.name}
+              key={model.id}
               className="group bg-[#f6fafd] border border-slate-100 rounded-lg overflow-hidden card-hover"
             >
               <div className="h-56 bg-white flex items-center justify-center p-6 border-b border-slate-100">
                 <img
                   src={model.image}
-                  alt={model.alt}
+                  alt={`${type} ${name}`}
                   loading="lazy"
                   className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
                 />
@@ -72,13 +45,24 @@ export default function GasAnalyzerModels() {
               <div className="p-5">
                 <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0b3a5b] bg-white rounded-md px-2.5 py-1 mb-3">
                   <BadgeCheck size={14} className="text-[#ff8a00]" />
-                  {model.type}
+                  {type}
                 </div>
-                <h3 className="text-lg font-bold text-[#0b3a5b] mb-2">{model.name}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{model.desc}</p>
+                <h3 className="text-lg font-bold text-[#0b3a5b] mb-2">{name}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">{t(model.descriptionKey)}</p>
               </div>
             </article>
-          ))}
+            );
+          })}
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <a
+            href="/catalog"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-[#0b3a5b]/20 bg-white px-6 py-3 text-sm font-semibold text-[#0b3a5b] transition-colors hover:border-[#0b3a5b] hover:bg-[#f6fafd]"
+          >
+            {t('analyzers.catalog_cta')}
+            <ArrowRight size={16} />
+          </a>
         </div>
 
         <div className="mt-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 bg-[#0b3a5b] text-white rounded-lg p-7 shadow-xl shadow-slate-200/50">
