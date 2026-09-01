@@ -128,7 +128,7 @@ export default function CatalogPage() {
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={t('catalog.search_placeholder')}
-                  className="h-12 w-full rounded-[2px] border border-[#aeb9bf] bg-white py-3 pl-12 pr-11 text-sm text-[#172027] outline-none transition-colors placeholder:text-[#7a878e] focus:border-[#0b4668] focus:ring-1 focus:ring-[#0b4668]"
+                  className="h-12 w-full rounded-[2px] border border-[#aeb9bf] bg-white py-3 pl-12 pr-11 text-sm text-[#172027] outline-none transition-colors placeholder:text-[#53636c] focus:border-[#0b4668] focus:ring-1 focus:ring-[#0b4668]"
                 />
                 {query && (
                   <button
@@ -230,7 +230,7 @@ export default function CatalogPage() {
           </div>
         ) : (
           <div className="border border-[#aeb9bf] bg-white px-6 py-16 text-center sm:py-20">
-            <SearchX size={40} className="mx-auto mb-5 text-[#7a878e]" aria-hidden="true" />
+            <SearchX size={40} className="mx-auto mb-5 text-[#53636c]" aria-hidden="true" />
             <h2 className="mb-2 text-2xl font-semibold text-[#172027]">{t('catalog.empty_title')}</h2>
             <p className="mx-auto mb-7 max-w-xl leading-7 text-[#56636b]">{t('catalog.empty_description')}</p>
             <button

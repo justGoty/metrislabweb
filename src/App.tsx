@@ -12,6 +12,7 @@ import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import CatalogPage from './pages/CatalogPage';
+import PrivacyPage from './pages/PrivacyPage';
 
 function ScrollToHash() {
   useEffect(() => {
@@ -49,12 +50,13 @@ function HomePage() {
 function App() {
   const normalizedPath = window.location.pathname.replace(/\/+$/, '') || '/';
   const isCatalogPage = normalizedPath === '/catalog';
+  const isPrivacyPage = normalizedPath === '/privacy';
 
   return (
     <>
       <ScrollToHash />
       <Navbar />
-      {isCatalogPage ? <CatalogPage /> : <HomePage />}
+      {isCatalogPage ? <CatalogPage /> : isPrivacyPage ? <PrivacyPage /> : <HomePage />}
       <Footer />
       <ScrollToTop />
     </>

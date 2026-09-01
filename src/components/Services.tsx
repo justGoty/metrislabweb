@@ -1,4 +1,4 @@
-import { ArrowRight, ClipboardCheck, Gauge, Wrench } from 'lucide-react';
+import { ClipboardCheck, Gauge, Wrench } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '../lib/useScrollReveal';
 
@@ -26,26 +26,21 @@ export default function Services() {
           {services.map((service) => {
             const Icon = service.icon;
             return (
-              <article key={service.title} className="group flex min-h-[420px] flex-col border-b border-r border-[#bfc9ce] bg-white p-7 transition-colors hover:bg-[#fbfcfc] lg:p-8">
+              <article key={service.title} className="group flex min-h-[340px] flex-col border-b border-r border-[#bfc9ce] bg-white p-7 transition-colors hover:bg-[#fbfcfc] lg:min-h-[420px] lg:p-8">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs text-[#7c8c94]">{service.code} / 03</span>
+                  <span className="font-mono text-xs text-[#53636c]">{service.code} / 03</span>
                   <Icon size={26} className="text-[#0b4668]" strokeWidth={1.6} />
                 </div>
-                <h3 className="mt-16 max-w-xs text-2xl font-semibold leading-tight text-[#172027]">{service.title}</h3>
+                <h3 className="mt-10 max-w-xs text-2xl font-semibold leading-tight text-[#172027] lg:mt-16">{service.title}</h3>
                 <p className="mt-5 text-sm leading-6 text-[#667780]">{service.desc}</p>
                 <div className="mt-auto border-t border-[#d8dfe2] pt-5">
-                  <p className="font-mono text-[10px] uppercase text-[#7c8c94]">{t('services.result_label')}</p>
+                  <p className="font-mono text-[10px] uppercase text-[#53636c]">{t('services.result_label')}</p>
                   <p className="mt-2 text-sm font-medium leading-6 text-[#27343b]">{service.result}</p>
                 </div>
               </article>
             );
           })}
         </div>
-
-        <a href="#contact" className="button-primary mt-8">
-          {t('services.cta')}
-          <ArrowRight size={18} />
-        </a>
       </div>
     </section>
   );

@@ -35,10 +35,10 @@
   },
   "about": {
     "label": "Capabilities",
-    "headline": "One route for the instrument and documents",
+    "headline": "One order for the instrument and documents",
     "highlight": "accurately and without downtime",
-    "description1": "We manage the full cycle: equipment intake, initial assessment, diagnostics, repair approval, verification arrangement, and return of the complete package.",
-    "description2": "The customer works with one responsible engineer and receives a clear status for every instrument, including equipment batches.",
+    "description1": "We accept the equipment, record its completeness, perform the initial assessment, approve repairs, arrange verification, and return the instruments with documents.",
+    "description2": "We record the scope and current status of every instrument. One engineer manages the order from intake to return.",
     "tech_heading": "Scope",
     "tech1_label": "Instrument types",
     "tech1_value": "portable and fixed",
@@ -61,18 +61,18 @@
   },
   "services": {
     "label": "Three scenarios",
-    "headline": "From the task to a ready instrument",
-    "description": "We do not sell unnecessary operations. First we assess the equipment, then approve only the work that is actually required.",
+    "headline": "Three service routes",
+    "description": "The service route is defined after the initial equipment assessment. Repairs, price, and lead time are approved before work begins.",
     "result_label": "Outcome",
     "s1_title": "Verification with support",
     "s1_desc": "We accept a working instrument, check completeness, arrange verification with an accredited organization, and control the procedure.",
     "s1_result": "A working instrument and the required verification results.",
     "s2_title": "Diagnostics and repair",
     "s2_desc": "We inspect sensors, pumps, power, electronics, and gas response. Before repair, we report the findings, price, and lead time.",
-    "s2_result": "Approved repair with no unexpected work in the invoice.",
+    "s2_result": "An approved scope of work and diagnostic findings.",
     "s3_title": "Instrument fleet service",
     "s3_desc": "We accept batches, record composition and status, distribute work by stage, and help plan future deadlines.",
-    "s3_result": "One responsible contact and a clear status for every instrument.",
+    "s3_result": "Status and deadline for every instrument.",
     "s4_title": "Calibration and adjustment",
     "s4_desc": "We adjust sensitivity and reading correctness using gas mixtures, checking response and measurement stability.",
     "s5_title": "Inspection preparation",
@@ -83,7 +83,7 @@
   },
   "process": {
     "label": "Work process",
-    "title": "Control at every stage",
+    "title": "How an order is processed",
     "description": "We record the initial condition and never start additional work without approval.",
     "cta": "Send instruments for service",
     "step1_title": "Intake and registration",
@@ -99,8 +99,8 @@
   },
   "laboratory": {
     "label": "Laboratory",
-    "title": "A real work environment",
-    "description": "Our technical facility in Balashikha is used for intake, diagnostics, and repair of gas analysis equipment. The site shows real Metris Lab premises.",
+    "title": "Technical facility in Balashikha",
+    "description": "We use this facility for equipment intake, records, diagnostics, and gas analyzer repair.",
     "point1": "Equipped workstations for electronics and sensor module diagnostics",
     "point2": "Dedicated intake, storage, and customer equipment record areas",
     "point3": "Work with portable and fixed gas analyzers",
@@ -109,8 +109,8 @@
     "cta": "Plan equipment delivery"
   },
   "clients": {
-    "label": "Relevant experience",
-    "title": "We work with manufacturers, service companies, and industrial customers",
+    "label": "Experience",
+    "title": "Companies we have worked with",
     "cta": "Discuss corporate service"
   },
   "analyzers": {
@@ -186,7 +186,7 @@
     "step2": "Get an assessment",
     "step2_desc": "An engineer clarifies the task, checks feasibility, and estimates the timeline.",
     "step3": "Send the equipment",
-    "step3_desc": "After approval, we perform diagnostics, adjustment, repair, or verification and prepare documents.",
+    "step3_desc": "After approval, we perform diagnostics, adjustment, or repair, arrange verification, and prepare the document package.",
     "form_name": "Your name",
     "form_name_placeholder": "Example: John Smith",
     "form_email": "Email",
@@ -238,6 +238,7 @@
     "service3": "Diagnostics and calibration",
     "service4": "Instrument fleet service",
     "copyright": "Metris Lab. Gas analyzer service.",
+    "privacy": "Personal data processing policy",
     "legal": "Verification of measuring instruments is performed by an accredited organization. Metris Lab manages intake, diagnostics, repair, verification transfer, and result delivery."
   }
 }

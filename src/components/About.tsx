@@ -1,15 +1,14 @@
-import { Activity, Boxes, Factory, FlaskConical, RadioTower, ShieldCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '../lib/useScrollReveal';
 
 export default function About() {
   const { t } = useTranslation();
-  const ref = useScrollReveal<HTMLDivElement>();
+  const ref = useScrollReveal<HTMLDListElement>();
   const competence = [
-    { icon: RadioTower, label: t('about.tech1_label'), value: t('about.tech1_value') },
-    { icon: Activity, label: t('about.tech2_label'), value: t('about.tech2_value') },
-    { icon: FlaskConical, label: t('about.tech3_label'), value: t('about.tech3_value') },
-    { icon: ShieldCheck, label: t('about.tech4_label'), value: t('about.tech4_value') },
+    { label: t('about.tech1_label'), value: t('about.tech1_value') },
+    { label: t('about.tech2_label'), value: t('about.tech2_value') },
+    { label: t('about.tech3_label'), value: t('about.tech3_value') },
+    { label: t('about.tech4_label'), value: t('about.tech4_value') },
   ];
 
   return (
@@ -26,22 +25,21 @@ export default function About() {
           </div>
         </div>
 
-        <div ref={ref} className="reveal-list mt-14 grid border-l border-t border-[#cbd3d8] sm:grid-cols-2 xl:grid-cols-4">
-          {competence.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div key={item.label} className="min-h-48 border-b border-r border-[#cbd3d8] p-6 lg:p-7">
-                <Icon size={24} className="text-[#0b4668]" strokeWidth={1.7} />
-                <p className="mt-8 font-mono text-[11px] uppercase text-[#7c8c94]">{item.label}</p>
-                <p className="mt-2 text-lg font-semibold leading-6 text-[#172027]">{item.value}</p>
+        <dl ref={ref} className="reveal-list mt-14 grid border-l border-t border-[#cbd3d8] sm:grid-cols-2 xl:grid-cols-4">
+          {competence.map((item, index) => (
+            <div key={item.label} className="min-h-36 border-b border-r border-[#cbd3d8] p-6 lg:p-7">
+              <div className="flex items-center justify-between gap-4">
+                <dt className="font-mono text-[11px] uppercase text-[#53636c]">{item.label}</dt>
+                <span className="font-mono text-[11px] text-[#0b4668]" aria-hidden="true">0{index + 1}</span>
               </div>
-            );
-          })}
-        </div>
+              <dd className="mt-6 text-lg font-semibold leading-6 text-[#172027]">{item.value}</dd>
+            </div>
+          ))}
+        </dl>
 
         <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-[#cbd3d8] pt-6 text-sm text-[#53636c]">
-          <span className="flex items-center gap-2"><Factory size={17} /> {t('about.audience1')}</span>
-          <span className="flex items-center gap-2"><Boxes size={17} /> {t('about.audience2')}</span>
+          <span>{t('about.audience1')}</span>
+          <span>{t('about.audience2')}</span>
         </div>
       </div>
     </section>

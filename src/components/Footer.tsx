@@ -44,6 +44,9 @@ export default function Footer() {
           <div>
             <p>ООО «МэтрисЛаб» · ИНН 5012117115 · КПП 501201001</p>
             <p className="mt-2">© {new Date().getFullYear()} {t('footer.copyright')}</p>
+            <a href="/privacy" className="mt-3 inline-block text-[#d7e0e4] underline underline-offset-4 hover:text-white">
+              {t('footer.privacy')}
+            </a>
           </div>
           <p className="max-w-xl leading-5 sm:text-right">{t('footer.legal')}</p>
         </div>

@@ -40,11 +40,12 @@ export default function ContactForm() {
         attachment: 'Фото шильдика или документ',
         attachmentHint: 'JPG, PNG, WEBP или PDF, до 5 МБ',
         attachmentSelected: 'Выбран файл:',
-        consent: 'Согласен на обработку данных для ответа на заявку',
+        consent: 'Согласен с',
+        consentLink: 'политикой обработки персональных данных',
         submit: 'Отправить инженеру',
         sending: 'Отправляем',
         successTitle: 'Заявка отправлена',
-        successText: 'Инженер получил данные и свяжется с вами по указанным контактам.',
+        successText: 'Заявка принята сайтом. Мы проверим данные и свяжемся с вами по указанным контактам.',
         another: 'Отправить ещё одну',
         genericError: 'Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.',
         fileTooLarge: 'Файл превышает 5 МБ.',
@@ -70,11 +71,12 @@ export default function ContactForm() {
         attachment: 'Nameplate photo or document',
         attachmentHint: 'JPG, PNG, WEBP or PDF, up to 5 MB',
         attachmentSelected: 'Selected file:',
-        consent: 'I consent to data processing for a response to this request',
+        consent: 'I agree to the',
+        consentLink: 'personal data processing policy',
         submit: 'Send to an engineer',
         sending: 'Sending',
         successTitle: 'Request sent',
-        successText: 'The engineer has received the details and will contact you shortly.',
+        successText: 'The website has accepted the request. We will review it and contact you using the details provided.',
         another: 'Send another request',
         genericError: 'The request could not be sent. Please try again or call us.',
         fileTooLarge: 'The file is larger than 5 MB.',
@@ -304,7 +306,12 @@ export default function ContactForm() {
                       required
                       className="mt-0.5 rounded-none border-slate-400 text-[#0b3a5b] focus:ring-[#0b3a5b]"
                     />
-                    <span>{copy.consent}</span>
+                    <span>
+                      {copy.consent}{' '}
+                      <a href="/privacy" className="font-medium text-[#0b3a5b] underline underline-offset-2 hover:text-[#d96d00]">
+                        {copy.consentLink}
+                      </a>
+                    </span>
                   </label>
 
                   {status === 'error' && error && (

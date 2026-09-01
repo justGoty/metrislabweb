@@ -24,8 +24,8 @@ export default function GasAnalyzerModels() {
         </div>
 
         <div className="mt-14 grid border-l border-t border-[#cbd3d8] sm:grid-cols-2 xl:grid-cols-4">
-          {gasAnalyzers.slice(0, 4).map((model) => (
-            <article key={model.id} className="group border-b border-r border-[#cbd3d8] bg-white">
+          {gasAnalyzers.slice(0, 4).map((model, index) => (
+            <article key={model.id} className={`group border-b border-r border-[#cbd3d8] bg-white ${index > 1 ? 'hidden sm:block' : ''}`}>
               <div className="flex aspect-[4/3] items-center justify-center bg-[#f2f5f6] p-7">
                 <img
                   src={model.image}
@@ -36,7 +36,7 @@ export default function GasAnalyzerModels() {
               </div>
               <div className="p-6">
                 <div className="flex items-center justify-between gap-3">
-                  <span className="font-mono text-[10px] uppercase text-[#7c8c94]">{model.manufacturer[language]}</span>
+                  <span className="font-mono text-[10px] uppercase text-[#53636c]">{model.manufacturer[language]}</span>
                   <span className="flex items-center gap-1 text-[11px] font-medium text-[#277a57]">
                     <BadgeCheck size={14} />
                     {t(`analyzers.type_${model.type}`)}

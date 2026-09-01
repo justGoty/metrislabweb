@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, Globe2, Mail, Menu, Phone, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
@@ -7,13 +7,53 @@ export default function Navbar() {
   const { t, i18n } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const mobilePanelRef = useRef<HTMLDivElement>(null);
+  const mobileButtonRef = useRef<HTMLButtonElement>(null);
   const isHomePage = window.location.pathname.replace(/\/+$/, '') === '';
   const homeHref = (anchor: string) => (isHomePage ? anchor : `/${anchor}`);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    if (!mobileOpen) return () => { document.body.style.overflow = ''; };
+
+    const panel = mobilePanelRef.current;
+    const focusable = panel?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+    focusable?.[0]?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileOpen(false);
+        requestAnimationFrame(() => mobileButtonRef.current?.focus());
+        return;
+      }
+
+      if (event.key !== 'Tab' || !focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', handleKeyDown);
+    };
   }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!langOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setLangOpen(false);
+    };
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, [langOpen]);
 
   const links = [
     { label: t('nav.services'), href: homeHref('#services') },
@@ -69,8 +109,8 @@ export default function Navbar() {
             </button>
             {langOpen && (
               <div className="absolute right-0 top-9 min-w-32 border border-[#cbd3d8] bg-white py-1 shadow-lg" role="menu">
-                <button type="button" onClick={() => selectLanguage('ru')} className="block w-full px-4 py-2 text-left text-sm hover:bg-[#f2f5f6]">Русский</button>
-                <button type="button" onClick={() => selectLanguage('en')} className="block w-full px-4 py-2 text-left text-sm hover:bg-[#f2f5f6]">English</button>
+                <button type="button" role="menuitem" onClick={() => selectLanguage('ru')} className="block w-full px-4 py-2 text-left text-sm hover:bg-[#f2f5f6]">Русский</button>
+                <button type="button" role="menuitem" onClick={() => selectLanguage('en')} className="block w-full px-4 py-2 text-left text-sm hover:bg-[#f2f5f6]">English</button>
               </div>
             )}
           </div>
@@ -81,6 +121,7 @@ export default function Navbar() {
         </nav>
 
         <button
+          ref={mobileButtonRef}
           type="button"
           onClick={() => setMobileOpen((open) => !open)}
           aria-expanded={mobileOpen}
@@ -92,7 +133,7 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="fixed inset-x-0 bottom-0 top-[76px] overflow-y-auto bg-white p-5 sm:top-[108px] sm:p-8 xl:hidden">
+        <div ref={mobilePanelRef} role="dialog" aria-modal="true" aria-label={t('nav.mobile_label')} className="fixed inset-x-0 bottom-0 top-[76px] overflow-y-auto bg-white p-5 sm:top-[108px] sm:p-8 xl:hidden">
           <nav className="flex flex-col border-t border-[#cbd3d8]" aria-label={t('nav.mobile_label')}>
             {links.map((link) => (
               <a key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className="border-b border-[#cbd3d8] py-5 text-xl font-semibold text-[#172027]">
