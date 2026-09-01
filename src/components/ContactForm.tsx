@@ -24,7 +24,7 @@ export default function ContactForm() {
         eyebrow: 'Заявка инженеру',
         title: 'Проверим модель и уточним срок',
         description:
-          'Пришлите модель прибора или фотографию шильдика. Ответим по возможности работ и следующему шагу.',
+          'Пришлите модель прибора или фотографию шильдика. Ответим о возможности работ и следующем шаге.',
         response: 'Ответ на заявку',
         responseValue: 'В рабочее время',
         channel: 'Связь',
@@ -163,7 +163,7 @@ export default function ContactForm() {
         <div className="grid overflow-hidden border border-slate-300 bg-white lg:grid-cols-[0.82fr_1.18fr]">
           <div className="flex flex-col justify-between bg-[#102f3f] p-7 text-white sm:p-10 lg:p-12">
             <div>
-              <p className="mb-5 font-mono text-xs uppercase tracking-[0.16em] text-[#ff9d2e]">
+              <p className="mb-5 font-mono text-xs uppercase text-[#ff9d2e]">
                 04 / {copy.eyebrow}
               </p>
               <h2 className="max-w-lg text-3xl font-semibold leading-tight sm:text-4xl">{copy.title}</h2>
@@ -279,7 +279,7 @@ export default function ContactForm() {
                           <span className="mt-1 block text-xs text-slate-500">{copy.attachmentHint}</span>
                         </span>
                       </span>
-                      <span className="shrink-0 font-mono text-xs uppercase text-[#0b3a5b]">Browse</span>
+                      <span className="shrink-0 font-mono text-xs uppercase text-[#0b3a5b]">{isRussian ? 'Выбрать' : 'Browse'}</span>
                       <input
                         id="contact-attachment"
                         className="sr-only"

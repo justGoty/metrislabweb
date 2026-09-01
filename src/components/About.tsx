@@ -1,78 +1,47 @@
+import { Activity, Boxes, Factory, FlaskConical, RadioTower, ShieldCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '../lib/useScrollReveal';
 
 export default function About() {
   const { t } = useTranslation();
-  const leftRef = useScrollReveal();
-  const rightRef = useScrollReveal();
+  const ref = useScrollReveal<HTMLDivElement>();
+  const competence = [
+    { icon: RadioTower, label: t('about.tech1_label'), value: t('about.tech1_value') },
+    { icon: Activity, label: t('about.tech2_label'), value: t('about.tech2_value') },
+    { icon: FlaskConical, label: t('about.tech3_label'), value: t('about.tech3_value') },
+    { icon: ShieldCheck, label: t('about.tech4_label'), value: t('about.tech4_value') },
+  ];
 
   return (
-    <section id="about" className="py-24 bg-white overflow-hidden">
-      {/* Section divider */}
-      <div className="section-divider max-w-4xl mx-auto mb-20" />
-
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
-
-          {/* Left — image with decorative elements */}
-          <div ref={leftRef} className="reveal-left flex justify-center lg:justify-end">
-            <div className="relative">
-              {/* Decorative shapes */}
-              <div className="absolute -top-4 -left-4 w-24 h-24 bg-[#f6fafd] rounded-lg animate-float-slow" />
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 border-2 border-[#ff8a00]/30 rounded-lg animate-float" />
-
-              <div className="relative rounded-lg overflow-hidden aspect-[4/3] w-full max-w-sm lg:max-w-[420px] shadow-2xl shadow-slate-200/60">
-                <img
-                  src="/images/gas-analyzer-service-lab.png"
-                  alt="Поверка и диагностика газоанализатора в сервисной лаборатории"
-                  className="w-full h-full object-cover img-parallax"
-                />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b3a5b]/35 to-transparent" />
-              </div>
-
-              {/* Badge floating */}
-              <div className="absolute -bottom-3 -left-3 bg-white rounded-lg shadow-lg px-4 py-3 border border-slate-100 animate-float">
-                <p className="text-2xl font-black text-[#ff8a00]">{t('about.badge_value')}</p>
-                <p className="text-xs text-slate-500 font-medium">{t('about.badge_label')}</p>
-              </div>
-            </div>
+    <section id="about" className="bg-white py-20 lg:py-28">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+          <div>
+            <p className="section-kicker">{t('about.label')}</p>
+            <h2 className="section-title mt-4">{t('about.headline')}</h2>
           </div>
-
-          {/* Right — text */}
-          <div ref={rightRef} className="reveal-right flex flex-col gap-6">
-            <div>
-              <p className="text-[#ff8a00] font-semibold text-sm uppercase mb-3">
-                {t('about.label')}
-              </p>
-              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-                {t('about.headline')}{' '}
-                <span className="text-[#0b3a5b]">{t('about.highlight')}</span>
-              </h2>
-            </div>
-            <p className="text-slate-500 leading-relaxed text-lg">
-              {t('about.description1')}
-            </p>
-
-            {/* Technical specs grid */}
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              {[
-                { label: t('about.tech1_label'), value: t('about.tech1_value') },
-                { label: t('about.tech2_label'), value: t('about.tech2_value') },
-                { label: t('about.tech3_label'), value: t('about.tech3_value') },
-                { label: t('about.tech4_label'), value: t('about.tech4_value') },
-              ].map((spec) => (
-                <div
-                  key={spec.label}
-                  className="group p-4 bg-[#f6fafd] rounded-lg border border-slate-100 hover:border-[#1d9bf0]/40 hover:bg-white transition-all duration-300 cursor-default"
-                >
-                  <p className="text-xs text-slate-400 font-medium uppercase mb-1">{spec.label}</p>
-                  <p className="text-sm font-bold text-slate-800 group-hover:text-[#ff8a00] transition-colors">{spec.value}</p>
-                </div>
-              ))}
-            </div>
+          <div>
+            <p className="max-w-3xl text-xl leading-8 text-[#27343b] sm:text-2xl sm:leading-9">{t('about.description1')}</p>
+            <p className="mt-5 max-w-3xl text-base leading-7 text-[#667780]">{t('about.description2')}</p>
           </div>
+        </div>
 
+        <div ref={ref} className="reveal-list mt-14 grid border-l border-t border-[#cbd3d8] sm:grid-cols-2 xl:grid-cols-4">
+          {competence.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.label} className="min-h-48 border-b border-r border-[#cbd3d8] p-6 lg:p-7">
+                <Icon size={24} className="text-[#0b4668]" strokeWidth={1.7} />
+                <p className="mt-8 font-mono text-[11px] uppercase text-[#7c8c94]">{item.label}</p>
+                <p className="mt-2 text-lg font-semibold leading-6 text-[#172027]">{item.value}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-[#cbd3d8] pt-6 text-sm text-[#53636c]">
+          <span className="flex items-center gap-2"><Factory size={17} /> {t('about.audience1')}</span>
+          <span className="flex items-center gap-2"><Boxes size={17} /> {t('about.audience2')}</span>
         </div>
       </div>
     </section>

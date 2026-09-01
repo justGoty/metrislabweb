@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { ArrowRight, ChevronRight, Search, SearchX, SlidersHorizontal, X } from 'lucide-react';
+import { ArrowRight, ChevronDown, ChevronRight, Search, SearchX, SlidersHorizontal, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import GasAnalyzerCard from '../components/catalog/GasAnalyzerCard';
 import { gasAnalyzers, type GasAnalyzerType } from '../data/gasAnalyzers';
@@ -74,102 +74,138 @@ export default function CatalogPage() {
   ];
 
   return (
-    <main className="relative z-10 min-h-screen bg-white pt-20">
-      <section className="border-b border-slate-200 bg-[#f6fafd]">
-        <div className="mx-auto max-w-7xl px-6 pb-14 pt-12 lg:px-8 lg:pb-18 lg:pt-16">
-          <nav aria-label={t('catalog.breadcrumb_label')} className="mb-8 flex items-center gap-2 text-sm text-slate-500">
-            <a href="/" className="transition-colors hover:text-[#ff8a00]">{t('catalog.breadcrumb_home')}</a>
-            <ChevronRight size={14} />
-            <span className="font-medium text-[#0b3a5b]">{t('nav.catalog')}</span>
+    <main className="relative z-10 min-h-screen bg-[#f2f5f6] pt-[76px] text-[#172027] sm:pt-[108px]">
+      <section className="border-b border-[#cbd3d8] bg-white">
+        <div className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+          <nav
+            aria-label={t('catalog.breadcrumb_label')}
+            className="mb-9 flex items-center gap-2 font-mono text-xs text-[#63717a]"
+          >
+            <a href="/" className="border-b border-transparent transition-colors hover:border-[#f28c18] hover:text-[#172027]">
+              {t('catalog.breadcrumb_home')}
+            </a>
+            <ChevronRight size={13} aria-hidden="true" />
+            <span className="text-[#0b4668]">{t('nav.catalog')}</span>
           </nav>
 
-          <div className="max-w-4xl">
-            <p className="mb-3 text-sm font-semibold uppercase text-[#ff8a00]">{t('catalog.eyebrow')}</p>
-            <h1 className="mb-5 text-4xl font-bold leading-tight text-[#0b3a5b] sm:text-5xl lg:text-6xl">
-              {t('catalog.title')}
-            </h1>
-            <p className="max-w-3xl text-lg leading-8 text-slate-600">{t('catalog.description')}</p>
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-8">
+              <p className="mb-4 flex items-center gap-3 text-xs font-semibold uppercase text-[#0b4668]">
+                <span className="h-2 w-2 bg-[#f28c18]" aria-hidden="true" />
+                {t('catalog.eyebrow')}
+              </p>
+              <h1 className="max-w-4xl text-4xl font-semibold leading-[1.08] text-[#172027] sm:text-5xl lg:text-6xl">
+                {t('catalog.title')}
+              </h1>
+            </div>
+            <div className="border-l-2 border-[#0b4668] pl-5 lg:col-span-4 lg:mb-1">
+              <p className="max-w-xl text-base leading-7 text-[#56636b]">{t('catalog.description')}</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section aria-label={t('catalog.filters_label')} className="sticky top-20 z-30 border-b border-slate-200 bg-white/95 backdrop-blur-md">
-        <div className="mx-auto max-w-7xl px-6 py-5 lg:px-8">
-          <div className="grid gap-4 xl:grid-cols-[minmax(320px,1fr)_auto_240px] xl:items-end">
-            <label className="block">
-              <span className="mb-2 block text-xs font-semibold uppercase text-slate-500">{t('catalog.search_label')}</span>
+      <section
+        aria-label={t('catalog.filters_label')}
+        className="border-b border-[#aeb9bf] bg-[#f2f5f6] xl:sticky xl:top-[108px] xl:z-30 xl:bg-[#f2f5f6]/95 xl:backdrop-blur-sm"
+      >
+        <div className="mx-auto max-w-[1440px] px-5 py-5 sm:px-8 lg:px-12">
+          <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase text-[#56636b]">
+            <SlidersHorizontal size={15} className="text-[#0b4668]" aria-hidden="true" />
+            {t('catalog.filters_label')}
+          </div>
+
+          <div className="grid gap-3 xl:grid-cols-[minmax(320px,1fr)_minmax(390px,auto)_260px] xl:items-end">
+            <div className="block min-w-0">
+              <label htmlFor="catalog-search" className="mb-2 block text-xs font-medium text-[#56636b]">
+                {t('catalog.search_label')}
+              </label>
               <span className="relative block">
-                <Search size={19} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Search size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0b4668]" />
                 <input
+                  id="catalog-search"
                   type="search"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={t('catalog.search_placeholder')}
-                  className="h-12 w-full rounded-lg border border-slate-300 bg-white py-3 pl-12 pr-11 text-sm text-slate-900 outline-none transition focus:border-[#1d9bf0] focus:ring-2 focus:ring-[#1d9bf0]/20"
+                  className="h-12 w-full rounded-[2px] border border-[#aeb9bf] bg-white py-3 pl-12 pr-11 text-sm text-[#172027] outline-none transition-colors placeholder:text-[#7a878e] focus:border-[#0b4668] focus:ring-1 focus:ring-[#0b4668]"
                 />
                 {query && (
                   <button
                     type="button"
                     onClick={() => setQuery('')}
                     aria-label={t('catalog.clear_search')}
-                    className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
+                    className="absolute right-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-[#63717a] transition-colors hover:bg-[#e5eaec] hover:text-[#172027] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#0b4668]"
                   >
                     <X size={17} />
                   </button>
                 )}
               </span>
-            </label>
+            </div>
 
-            <div>
-              <span className="mb-2 block text-xs font-semibold uppercase text-slate-500">{t('catalog.type_label')}</span>
-              <div className="grid grid-cols-2 gap-1 rounded-lg border border-slate-300 bg-slate-50 p-1 sm:h-12 sm:grid-cols-3 sm:gap-0">
+            <fieldset className="min-w-0">
+              <legend className="mb-2 text-xs font-medium text-[#56636b]">{t('catalog.type_label')}</legend>
+              <div className="grid grid-cols-2 border border-[#aeb9bf] bg-white sm:grid-cols-3">
                 {typeOptions.map((option) => (
                   <button
                     key={option.value}
                     type="button"
                     onClick={() => setTypeFilter(option.value)}
-                    className={`min-h-10 min-w-0 rounded-md px-3 text-sm font-medium transition-colors sm:min-h-0 ${
-                      option.value === 'portable' ? 'col-span-2 sm:col-span-1' : ''
+                    aria-pressed={typeFilter === option.value}
+                    className={`min-h-12 min-w-0 border-b border-r border-[#aeb9bf] px-3 text-sm font-semibold transition-colors sm:border-b-0 sm:last:border-r-0 ${
+                      option.value === 'portable' ? 'col-span-2 border-b-0 border-r-0 sm:col-span-1' : ''
                     } ${
                       typeFilter === option.value
-                        ? 'bg-[#0b3a5b] text-white shadow-sm'
-                        : 'text-slate-600 hover:bg-white hover:text-[#0b3a5b]'
+                        ? 'bg-[#0b4668] text-white'
+                        : 'bg-white text-[#344149] hover:bg-[#e5eaec] hover:text-[#0b4668]'
                     }`}
                   >
                     {option.label}
                   </button>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
-            <label className="block">
-              <span className="mb-2 block text-xs font-semibold uppercase text-slate-500">{t('catalog.manufacturer_label')}</span>
-              <select
-                value={manufacturerFilter}
-                onChange={(event) => setManufacturerFilter(event.target.value)}
-                className="h-12 w-full rounded-lg border border-slate-300 bg-white px-4 text-sm text-slate-800 outline-none transition focus:border-[#1d9bf0] focus:ring-2 focus:ring-[#1d9bf0]/20"
-              >
-                <option value="all">{t('catalog.all_manufacturers')}</option>
-                {manufacturers.map((manufacturer) => (
-                  <option key={manufacturer.id} value={manufacturer.id}>{manufacturer.label}</option>
-                ))}
-              </select>
-            </label>
+            <div className="block min-w-0">
+              <label htmlFor="catalog-manufacturer" className="mb-2 block text-xs font-medium text-[#56636b]">
+                {t('catalog.manufacturer_label')}
+              </label>
+              <span className="relative block">
+                <select
+                  id="catalog-manufacturer"
+                  value={manufacturerFilter}
+                  onChange={(event) => setManufacturerFilter(event.target.value)}
+                  className="h-12 w-full appearance-none rounded-[2px] border border-[#aeb9bf] bg-white px-4 pr-11 text-sm text-[#172027] outline-none transition-colors focus:border-[#0b4668] focus:ring-1 focus:ring-[#0b4668]"
+                >
+                  <option value="all">{t('catalog.all_manufacturers')}</option>
+                  {manufacturers.map((manufacturer) => (
+                    <option key={manufacturer.id} value={manufacturer.id}>{manufacturer.label}</option>
+                  ))}
+                </select>
+                <ChevronDown
+                  size={17}
+                  className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#0b4668]"
+                  aria-hidden="true"
+                />
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-sm text-slate-600">
-            <SlidersHorizontal size={17} className="text-[#ff8a00]" />
+      <section className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-16">
+        <div className="mb-6 flex min-h-10 flex-wrap items-center justify-between gap-4 border-b border-[#aeb9bf] pb-4">
+          <div className="flex items-center gap-3 text-sm text-[#344149]">
+            <span className="font-mono text-lg font-semibold text-[#0b4668]">
+              {String(filteredAnalyzers.length).padStart(2, '0')}
+            </span>
             <span>{t('catalog.results', { count: filteredAnalyzers.length })}</span>
           </div>
           {hasActiveFilters && (
             <button
               type="button"
               onClick={resetFilters}
-              className="text-sm font-semibold text-[#0b3a5b] transition-colors hover:text-[#ff8a00]"
+              className="min-h-10 border-b border-[#0b4668] text-sm font-semibold text-[#0b4668] transition-colors hover:border-[#f28c18] hover:text-[#b45d00]"
             >
               {t('catalog.reset')}
             </button>
@@ -177,11 +213,12 @@ export default function CatalogPage() {
         </div>
 
         {filteredAnalyzers.length > 0 ? (
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {filteredAnalyzers.map((analyzer) => (
+          <div className="grid border-l border-t border-[#aeb9bf] sm:grid-cols-2 xl:grid-cols-3">
+            {filteredAnalyzers.map((analyzer, index) => (
               <GasAnalyzerCard
                 key={analyzer.id}
                 analyzer={analyzer}
+                index={index + 1}
                 name={t(analyzer.nameKey)}
                 description={t(analyzer.descriptionKey)}
                 manufacturer={analyzer.manufacturer[language]}
@@ -192,31 +229,32 @@ export default function CatalogPage() {
             ))}
           </div>
         ) : (
-          <div className="border-y border-slate-200 py-20 text-center">
-            <SearchX size={42} className="mx-auto mb-5 text-slate-300" />
-            <h2 className="mb-2 text-2xl font-bold text-[#0b3a5b]">{t('catalog.empty_title')}</h2>
-            <p className="mx-auto mb-6 max-w-xl text-slate-600">{t('catalog.empty_description')}</p>
+          <div className="border border-[#aeb9bf] bg-white px-6 py-16 text-center sm:py-20">
+            <SearchX size={40} className="mx-auto mb-5 text-[#7a878e]" aria-hidden="true" />
+            <h2 className="mb-2 text-2xl font-semibold text-[#172027]">{t('catalog.empty_title')}</h2>
+            <p className="mx-auto mb-7 max-w-xl leading-7 text-[#56636b]">{t('catalog.empty_description')}</p>
             <button
               type="button"
               onClick={resetFilters}
-              className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[#0b3a5b] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#145277]"
+              className="inline-flex min-h-12 items-center justify-center rounded-[2px] bg-[#0b4668] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#083750] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0b4668]"
             >
               {t('catalog.reset')}
             </button>
           </div>
         )}
 
-        <div className="mt-16 flex flex-col gap-6 border-t border-slate-200 pt-10 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <h2 className="mb-2 text-2xl font-bold text-[#0b3a5b]">{t('catalog.not_listed_title')}</h2>
-            <p className="max-w-2xl leading-7 text-slate-600">{t('catalog.not_listed_description')}</p>
+        <div className="mt-14 grid border-y border-[#aeb9bf] bg-white lg:grid-cols-12">
+          <div className="border-b border-[#aeb9bf] p-6 sm:p-8 lg:col-span-8 lg:border-b-0 lg:border-r">
+            <p className="mb-3 font-mono text-xs text-[#0b4668]">SERVICE REQUEST / 01</p>
+            <h2 className="mb-3 text-2xl font-semibold text-[#172027] sm:text-3xl">{t('catalog.not_listed_title')}</h2>
+            <p className="max-w-2xl leading-7 text-[#56636b]">{t('catalog.not_listed_description')}</p>
           </div>
           <a
             href="/#contact"
-            className="inline-flex min-h-12 flex-shrink-0 items-center justify-center gap-2 rounded-lg bg-[#ff8a00] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#e67600]"
+            className="group flex min-h-28 items-center justify-between gap-5 rounded-[2px] bg-[#f28c18] px-6 py-5 text-sm font-semibold text-[#172027] transition-colors hover:bg-[#df7a08] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0b4668] sm:px-8 lg:col-span-4"
           >
-            {t('catalog.not_listed_cta')}
-            <ArrowRight size={17} />
+            <span className="max-w-[15rem]">{t('catalog.not_listed_cta')}</span>
+            <ArrowRight size={20} className="flex-none transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </a>
         </div>
       </section>

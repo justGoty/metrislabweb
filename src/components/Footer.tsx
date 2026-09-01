@@ -1,89 +1,51 @@
+import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
-import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 
 export default function Footer() {
   const { t } = useTranslation();
-  const isHomePage = window.location.pathname === '/';
+  const isHomePage = window.location.pathname.replace(/\/+$/, '') === '';
   const homeHref = (anchor: string) => (isHomePage ? anchor : `/${anchor}`);
 
   return (
-    <footer className="bg-[#0b3a5b] text-white py-16 relative overflow-hidden">
-      {/* Decorative gradient */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-px bg-gradient-to-r from-transparent via-[#ff8a00]/70 to-transparent" />
-
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-[1.1fr_1fr_1.2fr] gap-10 mb-12">
+    <footer className="bg-[#172027] text-white">
+      <div className="mx-auto max-w-[1440px] px-5 py-14 sm:px-8 lg:px-12 lg:py-20">
+        <div className="grid gap-12 border-b border-white/15 pb-14 lg:grid-cols-[1.1fr_0.8fr_1fr]">
           <div>
-            <Logo height={36} scheme="dark" className="opacity-90 mb-4" />
-            <p className="text-slate-300 text-sm leading-relaxed mb-5">
-              Поверка, диагностика, калибровка и ремонт газоанализаторов для предприятий, лабораторий и служб промышленной безопасности.
-            </p>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              OOO "МэтрисЛаб" <br />
-              ИНН 5012117115 <br />
-              КПП 501201001
-            </p>
-          </div>
-          <div className="grid grid-cols-1 gap-6 text-sm">
-            <div className="group">
-              <div className="flex items-center gap-2 mb-3">
-                <MapPin size={14} className="text-[#ff8a00] group-hover:scale-110 transition-transform" />
-                <p className="text-slate-300 font-semibold">{t('footer.office')}</p>
-              </div>
-              <p className="text-slate-400 leading-relaxed">143982, Московская область, г Балашиха, мкр. Кучино, ул Гидрогородок, д. 15 к. 2</p>
-            </div>
-            <div className="group">
-              <div className="flex items-center gap-2 mb-3">
-                <Phone size={14} className="text-[#ff8a00] group-hover:scale-110 transition-transform" />
-                <p className="text-slate-300 font-semibold">{t('footer.phone')}</p>
-              </div>
-              <a href="tel:+79775299213" className="text-slate-400 hover:text-white transition-colors">
-                +7 (977) 529 92 13
-              </a>
-            </div>
-            <div className="group">
-              <div className="flex items-center gap-2 mb-3">
-                <Mail size={14} className="text-[#ff8a00] group-hover:scale-110 transition-transform" />
-                <p className="text-slate-300 font-semibold">{t('footer.email')}</p>
-              </div>
-              <a href="mailto:info@metrislab.ru" className="text-slate-400 hover:text-white transition-colors">
-                info@metrislab.ru
-              </a>
-            </div>
-          </div>
-          <div>
-            <p className="text-slate-300 font-semibold mb-4">{t('footer.services')}</p>
-            <div className="grid sm:grid-cols-2 gap-3 text-sm">
-              {[t('footer.service1'), t('footer.service2'), t('footer.service3'), t('footer.service4')].map((item) => (
-                <a key={item} href={homeHref('#services')} className="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
-                  <ArrowRight size={14} className="text-[#ff8a00] group-hover:translate-x-1 transition-transform" />
-                  {item}
-                </a>
-              ))}
-            </div>
-            <a
-              href={homeHref('#contact')}
-              className="mt-6 inline-flex items-center gap-2 px-5 py-3 bg-[#ff8a00] text-white text-sm font-semibold rounded-lg hover:bg-[#e67600] transition-colors"
-            >
+            <Logo height={43} scheme="dark" />
+            <p className="mt-6 max-w-md text-sm leading-7 text-[#b9c5cb]">{t('footer.summary')}</p>
+            <a href={homeHref('#contact')} className="link-arrow mt-7 text-white">
               {t('nav.cta')}
-              <ArrowRight size={16} />
+              <ArrowUpRight size={16} />
             </a>
           </div>
+
+          <div>
+            <p className="font-mono text-[10px] uppercase text-[#82949e]">{t('footer.services')}</p>
+            <nav className="mt-5 flex flex-col gap-3 text-sm text-[#d7e0e4]">
+              <a href={homeHref('#services')} className="hover:text-white">{t('footer.service1')}</a>
+              <a href={homeHref('#services')} className="hover:text-white">{t('footer.service2')}</a>
+              <a href={homeHref('#services')} className="hover:text-white">{t('footer.service3')}</a>
+              <a href="/catalog" className="hover:text-white">{t('nav.catalog')}</a>
+            </nav>
+          </div>
+
+          <address className="not-italic">
+            <p className="font-mono text-[10px] uppercase text-[#82949e]">{t('footer.contacts')}</p>
+            <div className="mt-5 space-y-4 text-sm leading-6 text-[#d7e0e4]">
+              <a href="tel:+79060799144" className="flex gap-3 hover:text-white"><Phone size={16} className="mt-1 shrink-0 text-[#f28c18]" /> +7 906 079 91 44</a>
+              <a href="mailto:info@metrislab.ru" className="flex gap-3 hover:text-white"><Mail size={16} className="mt-1 shrink-0 text-[#f28c18]" /> info@metrislab.ru</a>
+              <p className="flex gap-3"><MapPin size={16} className="mt-1 shrink-0 text-[#f28c18]" /> 143982, Московская область, г. Балашиха, мкр. Кучино, ул. Гидрогородок, д. 15, к. 2</p>
+            </div>
+          </address>
         </div>
 
-        <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <Logo height={28} scheme="dark" className="opacity-40" />
-            <span className="text-slate-500 text-sm">&copy; {new Date().getFullYear()} {t('footer.copyright')}</span>
+        <div className="flex flex-col gap-5 pt-7 text-xs text-[#82949e] sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p>ООО «МэтрисЛаб» · ИНН 5012117115 · КПП 501201001</p>
+            <p className="mt-2">© {new Date().getFullYear()} {t('footer.copyright')}</p>
           </div>
-          <div className="flex items-center gap-6 text-sm text-slate-400">
-            <a href={homeHref('#about')} className="hover:text-white transition-colors duration-300">{t('nav.about')}</a>
-            <a href="/catalog" className="hover:text-white transition-colors duration-300">{t('nav.catalog')}</a>
-            <a href={homeHref('#services')} className="hover:text-white transition-colors duration-300">{t('nav.services')}</a>
-            <a href={homeHref('#faq')} className="hover:text-white transition-colors duration-300">{t('faq.label')}</a>
-            <a href={homeHref('#contact')} className="hover:text-white transition-colors duration-300">{t('nav.contact')}</a>
-          </div>
+          <p className="max-w-xl leading-5 sm:text-right">{t('footer.legal')}</p>
         </div>
       </div>
     </footer>

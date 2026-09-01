@@ -1,154 +1,113 @@
-import { useState, useEffect } from 'react';
-import { Menu, X, Globe, Phone } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ChevronDown, Globe2, Mail, Menu, Phone, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const isHomePage = window.location.pathname === '/';
+  const isHomePage = window.location.pathname.replace(/\/+$/, '') === '';
   const homeHref = (anchor: string) => (isHomePage ? anchor : `/${anchor}`);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
 
   const links = [
-    { label: t('nav.about'), href: homeHref('#about') },
     { label: t('nav.services'), href: homeHref('#services') },
+    { label: t('nav.process'), href: homeHref('#process') },
+    { label: t('nav.laboratory'), href: homeHref('#laboratory') },
     { label: t('nav.catalog'), href: '/catalog' },
-    { label: t('nav.advantages'), href: homeHref('#advantages') },
     { label: t('faq.label'), href: homeHref('#faq') },
-    { label: t('nav.contact'), href: homeHref('#contact') },
   ];
 
+  const selectLanguage = (language: string) => {
+    i18n.changeLanguage(language);
+    setLangOpen(false);
+    setMobileOpen(false);
+  };
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <a href="/" className="flex items-center flex-shrink-0">
-            <Logo height={48} scheme="light" />
-          </a>
-
-          <nav className="hidden xl:flex items-center gap-6">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className={`text-sm font-medium transition-colors hover:text-[#ff8a00] ${
-                  scrolled ? 'text-slate-700' : 'text-[#0b3a5b]'
-                }`}
-              >
-                {l.label}
-              </a>
-            ))}
-
-            <div className="relative">
-              <button
-                onClick={() => setLangOpen(!langOpen)}
-                onBlur={() => setTimeout(() => setLangOpen(false), 150)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-[#0b3a5b] hover:bg-white/40'
-                }`}
-              >
-                <Globe size={15} />
-                <span className="uppercase">{i18n.language.slice(0, 2)}</span>
-              </button>
-              {langOpen && (
-                <div className="absolute top-full right-0 mt-1 bg-white rounded-lg shadow-lg border border-slate-100 overflow-hidden z-50 min-w-[110px]">
-                  {['en', 'ru'].map((lang) => (
-                    <button
-                      key={lang}
-                      onClick={() => { i18n.changeLanguage(lang); setLangOpen(false); }}
-                      className={`block w-full text-left px-4 py-2.5 text-sm transition-colors ${
-                        i18n.language.startsWith(lang)
-                          ? 'bg-[#f6fafd] text-[#0b3a5b] font-semibold'
-                          : 'text-slate-700 hover:bg-slate-50'
-                      }`}
-                    >
-                      {lang === 'en' ? 'English' : 'Русский'}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <a
-              href="tel:+79775299213"
-              className="hidden 2xl:inline-flex items-center gap-2 text-sm font-semibold text-[#0b3a5b] hover:text-[#ff8a00] transition-colors"
-            >
-              <Phone size={15} />
-              +7 (977) 529-92-13
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[#cbd3d8] bg-white">
+      <div className="hidden h-8 bg-[#172027] text-white sm:block">
+        <div className="mx-auto flex h-full max-w-[1440px] items-center justify-between px-8 text-[11px] lg:px-12">
+          <span className="font-medium text-[#d7e0e4]">{t('nav.utility')}</span>
+          <div className="flex items-center gap-6">
+            <a href="mailto:info@metrislab.ru" className="flex items-center gap-1.5 text-[#d7e0e4] hover:text-white">
+              <Mail size={12} /> info@metrislab.ru
             </a>
-
-            <a
-              href={homeHref('#contact')}
-              className="px-5 py-2.5 bg-[#ff8a00] text-white text-sm font-semibold rounded-lg hover:bg-[#e67600] transition-colors shadow-sm"
-            >
-              {t('nav.cta')}
+            <a href="tel:+79060799144" className="flex items-center gap-1.5 font-semibold text-white">
+              <Phone size={12} /> +7 906 079 91 44
             </a>
-          </nav>
-
-          <button
-            className={`xl:hidden p-2 rounded-lg transition-colors ${
-              scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-[#0b3a5b] hover:bg-white/40'
-            }`}
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          </div>
         </div>
       </div>
 
-      {mobileOpen && (
-        <div className="xl:hidden bg-white border-t border-slate-100 px-6 py-5 flex flex-col gap-4">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setMobileOpen(false)}
-              className="text-slate-700 font-medium hover:text-[#ff8a00] transition-colors"
-            >
-              {l.label}
-            </a>
+      <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
+        <a href="/" aria-label={t('nav.home_label')} className="shrink-0">
+          <Logo height={42} scheme="light" />
+        </a>
+
+        <nav className="hidden items-center gap-6 xl:flex" aria-label={t('nav.main_label')}>
+          {links.map((link) => (
+            <a key={link.href} href={link.href} className="nav-link">{link.label}</a>
           ))}
-          <div className="pt-3 border-t border-slate-100 flex gap-2">
-            {['en', 'ru'].map((lang) => (
-              <button
-                key={lang}
-                onClick={() => { i18n.changeLanguage(lang); setMobileOpen(false); }}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  i18n.language.startsWith(lang)
-                    ? 'bg-[#0b3a5b] text-white'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                }`}
-              >
-                {lang === 'en' ? 'EN' : 'RU'}
-              </button>
-            ))}
+
+          <div className="relative">
+            <button
+              type="button"
+              className="nav-link flex items-center gap-1.5"
+              aria-haspopup="menu"
+              aria-expanded={langOpen}
+              onClick={() => setLangOpen((open) => !open)}
+            >
+              <Globe2 size={15} />
+              {i18n.language.slice(0, 2).toUpperCase()}
+              <ChevronDown size={13} />
+            </button>
+            {langOpen && (
+              <div className="absolute right-0 top-9 min-w-32 border border-[#cbd3d8] bg-white py-1 shadow-lg" role="menu">
+                <button type="button" onClick={() => selectLanguage('ru')} className="block w-full px-4 py-2 text-left text-sm hover:bg-[#f2f5f6]">Русский</button>
+                <button type="button" onClick={() => selectLanguage('en')} className="block w-full px-4 py-2 text-left text-sm hover:bg-[#f2f5f6]">English</button>
+              </div>
+            )}
           </div>
-          <a
-            href="tel:+79775299213"
-            className="text-[#0b3a5b] font-semibold"
-          >
-            +7 (977) 529-92-13
-          </a>
-          <a
-            href={homeHref('#contact')}
-            onClick={() => setMobileOpen(false)}
-            className="px-5 py-2.5 bg-[#ff8a00] text-white text-sm font-semibold rounded-lg hover:bg-[#e67600] transition-colors text-center"
-          >
+
+          <a href={homeHref('#contact')} className="button-primary min-h-10 px-4 py-2 text-xs">
             {t('nav.cta')}
           </a>
+        </nav>
+
+        <button
+          type="button"
+          onClick={() => setMobileOpen((open) => !open)}
+          aria-expanded={mobileOpen}
+          aria-label={mobileOpen ? t('nav.close_menu') : t('nav.open_menu')}
+          className="icon-button xl:hidden"
+        >
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
+
+      {mobileOpen && (
+        <div className="fixed inset-x-0 bottom-0 top-[76px] overflow-y-auto bg-white p-5 sm:top-[108px] sm:p-8 xl:hidden">
+          <nav className="flex flex-col border-t border-[#cbd3d8]" aria-label={t('nav.mobile_label')}>
+            {links.map((link) => (
+              <a key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className="border-b border-[#cbd3d8] py-5 text-xl font-semibold text-[#172027]">
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <div className="mt-8 grid gap-3">
+            <a href="tel:+79060799144" className="button-secondary justify-start"><Phone size={17} /> +7 906 079 91 44</a>
+            <a href={homeHref('#contact')} onClick={() => setMobileOpen(false)} className="button-primary">{t('nav.cta')}</a>
+          </div>
+          <div className="mt-8 flex gap-2">
+            <button type="button" onClick={() => selectLanguage('ru')} className="button-small">RU</button>
+            <button type="button" onClick={() => selectLanguage('en')} className="button-small">EN</button>
+          </div>
         </div>
       )}
     </header>

@@ -1,85 +1,63 @@
-import { ArrowRight, BadgeCheck, SearchCheck } from 'lucide-react';
+import { ArrowRight, BadgeCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useScrollReveal } from '../lib/useScrollReveal';
 import { gasAnalyzers } from '../data/gasAnalyzers';
 
 export default function GasAnalyzerModels() {
-  const { t } = useTranslation();
-  const headingRef = useScrollReveal();
-  const gridRef = useScrollReveal();
+  const { t, i18n } = useTranslation();
+  const language = i18n.language.startsWith('ru') ? 'ru' : 'en';
 
   return (
-    <section id="analyzers" className="py-24 bg-white overflow-hidden">
-      <div className="section-divider max-w-4xl mx-auto mb-20" />
-
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div ref={headingRef} className="reveal-up max-w-3xl mb-14">
-          <p className="text-[#ff8a00] font-semibold text-sm uppercase mb-3">
-            {t('analyzers.label')}
-          </p>
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-5">
-            {t('analyzers.headline')}
-          </h2>
-          <p className="text-slate-600 text-lg leading-relaxed">
-            {t('analyzers.description')}
-          </p>
+    <section id="analyzers" className="bg-white py-20 lg:py-28">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+          <div>
+            <p className="section-kicker">{t('analyzers.label')}</p>
+            <h2 className="section-title mt-4">{t('analyzers.headline')}</h2>
+          </div>
+          <div className="lg:justify-self-end">
+            <p className="max-w-2xl text-base leading-7 text-[#53636c]">{t('analyzers.description')}</p>
+            <a href="/catalog" className="link-arrow mt-6">
+              {t('analyzers.catalog_cta')}
+              <ArrowRight size={17} />
+            </a>
+          </div>
         </div>
 
-        <div ref={gridRef} className="stagger-children grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {gasAnalyzers.map((model) => {
-            const name = t(model.nameKey);
-            const type = t(`analyzers.type_${model.type}`);
-            return (
-            <article
-              key={model.id}
-              className="group bg-[#f6fafd] border border-slate-100 rounded-lg overflow-hidden card-hover"
-            >
-              <div className="h-56 bg-white flex items-center justify-center p-6 border-b border-slate-100">
+        <div className="mt-14 grid border-l border-t border-[#cbd3d8] sm:grid-cols-2 xl:grid-cols-4">
+          {gasAnalyzers.slice(0, 4).map((model) => (
+            <article key={model.id} className="group border-b border-r border-[#cbd3d8] bg-white">
+              <div className="flex aspect-[4/3] items-center justify-center bg-[#f2f5f6] p-7">
                 <img
                   src={model.image}
-                  alt={`${type} ${name}`}
+                  alt={t(model.nameKey)}
                   loading="lazy"
-                  className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.035]"
                 />
               </div>
-              <div className="p-5">
-                <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0b3a5b] bg-white rounded-md px-2.5 py-1 mb-3">
-                  <BadgeCheck size={14} className="text-[#ff8a00]" />
-                  {type}
+              <div className="p-6">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="font-mono text-[10px] uppercase text-[#7c8c94]">{model.manufacturer[language]}</span>
+                  <span className="flex items-center gap-1 text-[11px] font-medium text-[#277a57]">
+                    <BadgeCheck size={14} />
+                    {t(`analyzers.type_${model.type}`)}
+                  </span>
                 </div>
-                <h3 className="text-lg font-bold text-[#0b3a5b] mb-2">{name}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{t(model.descriptionKey)}</p>
+                <h3 className="mt-4 text-xl font-semibold text-[#172027]">{t(model.nameKey)}</h3>
+                <p className="mt-3 min-h-16 text-sm leading-6 text-[#667780]">{t(model.descriptionKey)}</p>
+                <a href={`/?model=${encodeURIComponent(t(model.nameKey))}#contact`} className="link-arrow mt-6 text-xs">
+                  {t('catalog.card_cta')}
+                  <ArrowRight size={15} />
+                </a>
               </div>
             </article>
-            );
-          })}
+          ))}
         </div>
 
-        <div className="mt-10 flex justify-center">
-          <a
-            href="/catalog"
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-[#0b3a5b]/20 bg-white px-6 py-3 text-sm font-semibold text-[#0b3a5b] transition-colors hover:border-[#0b3a5b] hover:bg-[#f6fafd]"
-          >
-            {t('analyzers.catalog_cta')}
-            <ArrowRight size={16} />
-          </a>
-        </div>
-
-        <div className="mt-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 bg-[#0b3a5b] text-white rounded-lg p-7 shadow-xl shadow-slate-200/50">
-          <div className="flex gap-4">
-            <div className="w-11 h-11 rounded-lg bg-white/10 text-[#ff8a00] flex items-center justify-center flex-shrink-0">
-              <SearchCheck size={22} />
-            </div>
-            <p className="text-base lg:text-lg text-white leading-8 font-medium max-w-3xl">
-              {t('analyzers.note')}
-            </p>
-          </div>
-          <a
-            href="#contact"
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#ff8a00] text-white text-sm font-semibold rounded-lg hover:bg-[#e67600] transition-colors flex-shrink-0"
-          >
+        <div className="mt-8 flex flex-col justify-between gap-5 border border-[#cbd3d8] bg-[#f2f5f6] p-6 sm:flex-row sm:items-center">
+          <p className="max-w-3xl text-sm leading-6 text-[#53636c]">{t('analyzers.note')}</p>
+          <a href="#contact" className="button-secondary shrink-0">
             {t('analyzers.cta')}
-            <ArrowRight size={16} />
+            <ArrowRight size={17} />
           </a>
         </div>
       </div>

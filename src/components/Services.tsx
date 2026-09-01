@@ -1,73 +1,51 @@
-import { Gauge, Activity, Truck, ClipboardCheck, TriangleAlert as AlertTriangle, GraduationCap, ArrowRight } from 'lucide-react';
+import { ArrowRight, ClipboardCheck, Gauge, Wrench } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '../lib/useScrollReveal';
 
 export default function Services() {
   const { t } = useTranslation();
-  const headingRef = useScrollReveal();
-  const gridRef = useScrollReveal();
-
+  const ref = useScrollReveal<HTMLDivElement>();
   const services = [
-    { icon: Gauge, title: t('services.s1_title'), desc: t('services.s1_desc'), gradient: 'from-blue-500 to-blue-600', bg: 'bg-[#eef8ff]', text: 'text-[#1d9bf0]' },
-    { icon: Activity, title: t('services.s2_title'), desc: t('services.s2_desc'), gradient: 'from-sky-500 to-sky-600', bg: 'bg-[#f6fafd]', text: 'text-[#0b3a5b]' },
-    { icon: Truck, title: t('services.s3_title'), desc: t('services.s3_desc'), gradient: 'from-teal-500 to-teal-600', bg: 'bg-orange-50', text: 'text-[#ff8a00]' },
-    { icon: ClipboardCheck, title: t('services.s4_title'), desc: t('services.s4_desc'), gradient: 'from-emerald-500 to-emerald-600', bg: 'bg-[#eef8ff]', text: 'text-[#1d9bf0]' },
-    { icon: AlertTriangle, title: t('services.s5_title'), desc: t('services.s5_desc'), gradient: 'from-amber-500 to-amber-600', bg: 'bg-amber-50', text: 'text-amber-600' },
-    { icon: GraduationCap, title: t('services.s6_title'), desc: t('services.s6_desc'), gradient: 'from-slate-500 to-slate-600', bg: 'bg-slate-100', text: 'text-slate-600' },
+    { icon: ClipboardCheck, code: '01', title: t('services.s1_title'), desc: t('services.s1_desc'), result: t('services.s1_result') },
+    { icon: Wrench, code: '02', title: t('services.s2_title'), desc: t('services.s2_desc'), result: t('services.s2_result') },
+    { icon: Gauge, code: '03', title: t('services.s3_title'), desc: t('services.s3_desc'), result: t('services.s3_result') },
   ];
 
   return (
-    <section id="services" className="py-24 bg-[#f6fafd] overflow-hidden relative">
-      {/* Background decorative pattern */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{
-        backgroundImage: 'radial-gradient(circle at 1px 1px, #1e293b 1px, transparent 0)',
-        backgroundSize: '32px 32px',
-      }} />
-
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <div ref={headingRef} className="reveal-up text-center max-w-2xl mx-auto mb-16">
-          <p className="text-[#ff8a00] font-semibold text-sm uppercase mb-3">
-            {t('services.label')}
-          </p>
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-5">
-            {t('services.headline')}
-          </h2>
-          <p className="text-slate-500 text-lg leading-relaxed">
-            {t('services.description')}
-          </p>
+    <section id="services" className="border-t border-[#cbd3d8] bg-[#f2f5f6] py-20 lg:py-28">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+          <div>
+            <p className="section-kicker">{t('services.label')}</p>
+            <h2 className="section-title mt-4">{t('services.headline')}</h2>
+          </div>
+          <p className="max-w-2xl text-base leading-7 text-[#53636c] lg:justify-self-end">{t('services.description')}</p>
         </div>
 
-        <div ref={gridRef} className="stagger-children grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((svc) => {
-            const Icon = svc.icon;
+        <div ref={ref} className="reveal-list mt-14 grid border-l border-t border-[#bfc9ce] lg:grid-cols-3">
+          {services.map((service) => {
+            const Icon = service.icon;
             return (
-              <div
-                key={svc.title}
-                className="group gradient-border card-hover bg-white rounded-lg p-7 border border-slate-100 cursor-default"
-              >
-                <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-5 ${svc.bg} ${svc.text} group-hover:scale-110 transition-transform duration-300`}>
-                  <Icon size={22} />
+              <article key={service.title} className="group flex min-h-[420px] flex-col border-b border-r border-[#bfc9ce] bg-white p-7 transition-colors hover:bg-[#fbfcfc] lg:p-8">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs text-[#7c8c94]">{service.code} / 03</span>
+                  <Icon size={26} className="text-[#0b4668]" strokeWidth={1.6} />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2.5 group-hover:text-[#0b3a5b] transition-colors">{svc.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{svc.desc}</p>
-                {/* Arrow indicator on hover */}
-                <div className="mt-4 flex items-center gap-1 text-[#ff8a00] text-sm font-medium opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                  <ArrowRight size={14} />
+                <h3 className="mt-16 max-w-xs text-2xl font-semibold leading-tight text-[#172027]">{service.title}</h3>
+                <p className="mt-5 text-sm leading-6 text-[#667780]">{service.desc}</p>
+                <div className="mt-auto border-t border-[#d8dfe2] pt-5">
+                  <p className="font-mono text-[10px] uppercase text-[#7c8c94]">{t('services.result_label')}</p>
+                  <p className="mt-2 text-sm font-medium leading-6 text-[#27343b]">{service.result}</p>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
 
-        <div className="mt-14 text-center">
-          <a
-            href="#contact"
-            className="btn-glow inline-flex items-center gap-2 px-8 py-3.5 bg-[#ff8a00] text-white font-semibold rounded-lg hover:bg-[#e67600] active:scale-95 transition-all shadow-lg shadow-orange-200/70"
-          >
-            {t('services.cta')}
-            <ArrowRight size={18} />
-          </a>
-        </div>
+        <a href="#contact" className="button-primary mt-8">
+          {t('services.cta')}
+          <ArrowRight size={18} />
+        </a>
       </div>
     </section>
   );

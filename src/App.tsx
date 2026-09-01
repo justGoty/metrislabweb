@@ -1,15 +1,34 @@
+import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Services from './components/Services';
+import Process from './components/Process';
+import Laboratory from './components/Laboratory';
+import Clients from './components/Clients';
 import GasAnalyzerModels from './components/GasAnalyzerModels';
-import Advantages from './components/Advantages';
 import FAQ from './components/FAQ';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import ParallaxBackground from './components/ParallaxBackground';
 import CatalogPage from './pages/CatalogPage';
+
+function ScrollToHash() {
+  useEffect(() => {
+    if (!window.location.hash) return;
+
+    const targetId = window.location.hash.slice(1);
+    const scroll = () => {
+      document.getElementById(targetId)?.scrollIntoView({ block: 'start' });
+    };
+    const timeoutIds = [120, 900].map((delay) => window.setTimeout(scroll, delay));
+    document.fonts?.ready.then(scroll);
+
+    return () => timeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId));
+  }, []);
+
+  return null;
+}
 
 function HomePage() {
   return (
@@ -17,8 +36,10 @@ function HomePage() {
       <Hero />
       <About />
       <Services />
+      <Process />
+      <Laboratory />
       <GasAnalyzerModels />
-      <Advantages />
+      <Clients />
       <FAQ />
       <ContactForm />
     </main>
@@ -31,7 +52,7 @@ function App() {
 
   return (
     <>
-      <ParallaxBackground />
+      <ScrollToHash />
       <Navbar />
       {isCatalogPage ? <CatalogPage /> : <HomePage />}
       <Footer />
