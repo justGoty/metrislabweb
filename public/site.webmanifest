@@ -1,6 +1,6 @@
 {
-  "name": "Metris Lab",
-  "short_name": "Metris Lab",
+  "name": "МэтрисЛаб",
+  "short_name": "МэтрисЛаб",
   "description": "Поверка, ремонт, диагностика и калибровка газоанализаторов.",
   "lang": "ru",
   "start_url": "/",
