@@ -5,17 +5,17 @@
 >
   <url>
     <loc>https://metrislab.ru/</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://metrislab.ru/images/lab/metrislab-hero.webp</image:loc>
-      <image:caption>Поверка, диагностика и ремонт газоанализаторов в лаборатории</image:caption>
+      <image:caption>Техническая площадка МэтрисЛаб для диагностики и ремонта газоанализаторов</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://metrislab.ru/catalog</loc>
-    <lastmod>2026-09-01</lastmod>
+    <loc>https://metrislab.ru/catalog/</loc>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -36,8 +36,8 @@
     </image:image>
   </url>
   <url>
-    <loc>https://metrislab.ru/privacy</loc>
-    <lastmod>2026-09-01</lastmod>
+    <loc>https://metrislab.ru/privacy/</loc>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>

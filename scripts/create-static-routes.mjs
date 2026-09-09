@@ -1,51 +1,23 @@
+import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { renderPage, staticPaths } from '../dist-ssr/entry-server.js';
 
-const distDirectory = new URL('../dist/', import.meta.url);
-const distPath = fileURLToPath(distDirectory);
-const source = await readFile(new URL('index.html', distDirectory), 'utf8');
+const dist = new URL('../dist/', import.meta.url);
+const template = await readFile(new URL('index.html', dist), 'utf8');
+const headMarker = /<!--page-head-start-->[\s\S]*?<!--page-head-end-->/;
+assert(headMarker.test(template), 'Page head placeholder is missing');
+assert(template.includes('<div id="root"><!--app-html--></div>'), 'App placeholder is missing');
 
-const routes = [
-  {
-    path: 'catalog',
-    title: 'Каталог газоанализаторов | МэтрисЛаб',
-    description: 'Каталог портативных и стационарных газоанализаторов. Поиск модели и запрос на поверку, диагностику, калибровку или ремонт.',
-    type: 'CollectionPage',
-  },
-  {
-    path: 'privacy',
-    title: 'Политика обработки персональных данных | МэтрисЛаб',
-    description: 'Политика ООО «МэтрисЛаб» в отношении обработки персональных данных пользователей сайта metrislab.ru.',
-    type: 'WebPage',
-  },
-];
-
-for (const route of routes) {
-  const canonical = `https://metrislab.ru/${route.path}`;
-  const structuredData = JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': route.type,
-    name: route.title,
-    description: route.description,
-    url: canonical,
-    isPartOf: { '@id': 'https://metrislab.ru/#website' },
-    inLanguage: 'ru-RU',
-  });
-
-  const html = source
-    .replace(/<title>[^<]*<\/title>/, `<title>${route.title}</title>`)
-    .replace(/<meta name="description" content="[^"]*"\s*\/>/, `<meta name="description" content="${route.description}" />`)
-    .replace(/<link rel="canonical" href="[^"]*"\s*\/>/, `<link rel="canonical" href="${canonical}" />`)
-    .replace(/<meta property="og:title" content="[^"]*"\s*\/>/, `<meta property="og:title" content="${route.title}" />`)
-    .replace(/<meta property="og:description" content="[^"]*"\s*\/>/, `<meta property="og:description" content="${route.description}" />`)
-    .replace(/<meta property="og:url" content="[^"]*"\s*\/>/, `<meta property="og:url" content="${canonical}" />`)
-    .replace(/<meta name="twitter:title" content="[^"]*"\s*\/>/, `<meta name="twitter:title" content="${route.title}" />`)
-    .replace(/<meta name="twitter:description" content="[^"]*"\s*\/>/, `<meta name="twitter:description" content="${route.description}" />`)
-    .replace(/\s*<script type="application\/ld\+json">[\s\S]*?<\/script>/, '')
-    .replace('</head>', `    <script type="application/ld+json">${structuredData}</script>\n  </head>`);
-
-  const outputDirectory = join(distPath, route.path);
-  await mkdir(outputDirectory, { recursive: true });
-  await writeFile(join(outputDirectory, 'index.html'), html, 'utf8');
+for (const path of staticPaths) {
+  const { head, html } = renderPage(path);
+  assert(html.includes('<h1'), `No H1 rendered for ${path}`);
+  const output = template
+    .replace(headMarker, () => head)
+    .replace('<div id="root"><!--app-html--></div>', () => `<div id="root" data-prerendered="true">${html}</div>`);
+  const file = new URL(path === '/404.html' ? '404.html' : `${path.slice(1)}index.html`, dist);
+  await mkdir(dirname(fileURLToPath(file)), { recursive: true });
+  await writeFile(file, output, 'utf8');
+  console.log(`Prerendered ${path}: ${Buffer.byteLength(output)} bytes`);
 }

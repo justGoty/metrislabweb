@@ -5,12 +5,15 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add('revealed');
+          el.animate?.(
+            [{ opacity: 0.65, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }],
+            { duration: 400, easing: 'ease-out' },
+          );
           observer.disconnect();
         }
       },

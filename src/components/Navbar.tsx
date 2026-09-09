@@ -3,13 +3,12 @@ import { ChevronDown, Globe2, Mail, Menu, Phone, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
 
-export default function Navbar() {
+export default function Navbar({ isHomePage }: { isHomePage: boolean }) {
   const { t, i18n } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const mobilePanelRef = useRef<HTMLDivElement>(null);
   const mobileButtonRef = useRef<HTMLButtonElement>(null);
-  const isHomePage = window.location.pathname.replace(/\/+$/, '') === '';
   const homeHref = (anchor: string) => (isHomePage ? anchor : `/${anchor}`);
 
   useEffect(() => {
@@ -59,7 +58,7 @@ export default function Navbar() {
     { label: t('nav.services'), href: homeHref('#services') },
     { label: t('nav.process'), href: homeHref('#process') },
     { label: t('nav.laboratory'), href: homeHref('#laboratory') },
-    { label: t('nav.catalog'), href: '/catalog' },
+    { label: t('nav.catalog'), href: '/catalog/' },
     { label: t('faq.label'), href: homeHref('#faq') },
   ];
 
@@ -87,7 +86,7 @@ export default function Navbar() {
 
       <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
         <a href="/" aria-label={t('nav.home_label')} className="shrink-0">
-          <Logo height={42} scheme="light" />
+          <Logo height={42} scheme="light" className="h-auto max-[360px]:w-[174px]" />
         </a>
 
         <nav className="hidden items-center gap-6 xl:flex" aria-label={t('nav.main_label')}>
@@ -120,20 +119,32 @@ export default function Navbar() {
           </a>
         </nav>
 
-        <button
-          ref={mobileButtonRef}
-          type="button"
-          onClick={() => setMobileOpen((open) => !open)}
-          aria-expanded={mobileOpen}
-          aria-label={mobileOpen ? t('nav.close_menu') : t('nav.open_menu')}
-          className="icon-button xl:hidden"
-        >
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        <div className="flex shrink-0 items-center gap-2 xl:hidden">
+          <a
+            href="tel:+79060799144"
+            className="icon-button"
+            aria-label={t('nav.call_label')}
+            title={t('nav.call_label')}
+          >
+            <Phone size={20} aria-hidden="true" />
+          </a>
+          <button
+            ref={mobileButtonRef}
+            type="button"
+            onClick={() => setMobileOpen((open) => !open)}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
+            aria-label={mobileOpen ? t('nav.close_menu') : t('nav.open_menu')}
+            className="icon-button xl:hidden"
+          >
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
       {mobileOpen && (
-        <div ref={mobilePanelRef} role="dialog" aria-modal="true" aria-label={t('nav.mobile_label')} className="fixed inset-x-0 bottom-0 top-[76px] overflow-y-auto bg-white p-5 sm:top-[108px] sm:p-8 xl:hidden">
+        <div id="mobile-navigation" ref={mobilePanelRef} role="dialog" aria-modal="true" aria-label={t('nav.mobile_label')} className="fixed inset-x-0 bottom-0 top-[76px] overflow-y-auto bg-white p-5 sm:top-[108px] sm:p-8 xl:hidden">
+          <button type="button" onClick={() => { setMobileOpen(false); mobileButtonRef.current?.focus(); }} className="icon-button mb-4 ml-auto flex" aria-label={t('nav.close_menu')} title={t('nav.close_menu')}><X size={20} /></button>
           <nav className="flex flex-col border-t border-[#cbd3d8]" aria-label={t('nav.mobile_label')}>
             {links.map((link) => (
               <a key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className="border-b border-[#cbd3d8] py-5 text-xl font-semibold text-[#172027]">

@@ -25,7 +25,7 @@ export default function GasAnalyzerCard({
   const requestHref = `/?model=${encodeURIComponent(name)}#contact`;
 
   return (
-    <article className="group flex min-h-full min-w-0 flex-col border-b border-r border-[#aeb9bf] bg-white">
+    <article id={analyzer.id} className="group flex min-h-full min-w-0 flex-col border-b border-r border-[#aeb9bf] bg-white">
       <header className="flex min-h-11 items-center justify-between gap-3 border-b border-[#cbd3d8] px-4 font-mono text-[11px] text-[#63717a] sm:px-5">
         <span>ML / GAS / {String(index).padStart(2, '0')}</span>
         <span className="flex min-w-0 items-center gap-2 text-right text-[#0b4668]">

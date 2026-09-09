@@ -9,14 +9,14 @@ export default function GasAnalyzerModels() {
   return (
     <section id="analyzers" className="bg-white py-20 lg:py-28">
       <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
-        <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:items-end">
           <div>
             <p className="section-kicker">{t('analyzers.label')}</p>
             <h2 className="section-title mt-4">{t('analyzers.headline')}</h2>
           </div>
           <div className="lg:justify-self-end">
             <p className="max-w-2xl text-base leading-7 text-[#53636c]">{t('analyzers.description')}</p>
-            <a href="/catalog" className="link-arrow mt-6">
+            <a href="/catalog/" className="link-arrow mt-6">
               {t('analyzers.catalog_cta')}
               <ArrowRight size={17} />
             </a>

@@ -1,11 +1,11 @@
-import { useRef, useState } from 'react';
-import { AlertCircle, CheckCircle2, FileUp, LoaderCircle, Send } from 'lucide-react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { AlertCircle, CheckCircle2, FileUp, LoaderCircle, Mail, Phone, Send } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '../lib/useScrollReveal';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
-const FORM_LOADED_AT = Date.now();
+const subscribe = () => () => {};
 
 type SubmissionStatus = 'idle' | 'loading' | 'success' | 'error';
 
@@ -13,11 +13,21 @@ export default function ContactForm() {
   const { i18n } = useTranslation();
   const sectionRef = useScrollReveal();
   const formRef = useRef<HTMLFormElement>(null);
+  const startedAt = useRef(0);
+  const requestRef = useRef<HTMLTextAreaElement>(null);
+  const isInteractive = useSyncExternalStore(subscribe, () => true, () => false);
   const [status, setStatus] = useState<SubmissionStatus>('idle');
   const [error, setError] = useState('');
   const [fileName, setFileName] = useState('');
-  const selectedModel = new URLSearchParams(window.location.search).get('model') ?? '';
   const isRussian = i18n.resolvedLanguage?.startsWith('ru') !== false;
+
+  useEffect(() => {
+    startedAt.current = Date.now();
+    const model = new URLSearchParams(window.location.search).get('model')?.trim().slice(0, 200);
+    if (model && requestRef.current && !requestRef.current.value) {
+      requestRef.current.value = `${model}, `;
+    }
+  }, []);
 
   const copy = isRussian
     ? {
@@ -28,7 +38,7 @@ export default function ContactForm() {
         response: 'Ответ на заявку',
         responseValue: 'В рабочее время',
         channel: 'Связь',
-        channelValue: 'Телефон или email',
+        channelValue: 'Позвоним по заявке',
         name: 'Ваше имя',
         namePlaceholder: 'Иван Петров',
         phone: 'Телефон',
@@ -50,6 +60,8 @@ export default function ContactForm() {
         genericError: 'Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.',
         fileTooLarge: 'Файл превышает 5 МБ.',
         fileTypeError: 'Допустимы только JPG, PNG, WEBP и PDF.',
+        phoneError: 'Укажите телефон с кодом страны: от 10 до 15 цифр.',
+        noScript: 'Для отправки формы нужен JavaScript. Можно позвонить или отправить модель прибора на info@metrislab.ru.',
       }
     : {
         eyebrow: 'Engineer request',
@@ -59,7 +71,7 @@ export default function ContactForm() {
         response: 'Response time',
         responseValue: 'During business hours',
         channel: 'Contact',
-        channelValue: 'Phone or email',
+        channelValue: 'We will call you',
         name: 'Your name',
         namePlaceholder: 'John Smith',
         phone: 'Phone',
@@ -81,6 +93,8 @@ export default function ContactForm() {
         genericError: 'The request could not be sent. Please try again or call us.',
         fileTooLarge: 'The file is larger than 5 MB.',
         fileTypeError: 'Only JPG, PNG, WEBP and PDF files are accepted.',
+        phoneError: 'Enter a phone number including the country code: 10 to 15 digits.',
+        noScript: 'JavaScript is required to submit this form. Call us or email the instrument model to info@metrislab.ru.',
       };
 
   function validateFile(file: File | null) {
@@ -122,7 +136,16 @@ export default function ContactForm() {
       return;
     }
 
-    formData.set('started_at', String(FORM_LOADED_AT));
+    const phone = String(formData.get('phone') ?? '').trim();
+    const digits = phone.replace(/\D/g, '');
+    if (!/^[+\d\s()-]+$/.test(phone) || digits.length < 10 || digits.length > 15) {
+      setError(copy.phoneError);
+      setStatus('error');
+      form.querySelector<HTMLInputElement>('[name="phone"]')?.focus();
+      return;
+    }
+
+    formData.set('started_at', String(startedAt.current));
     setStatus('loading');
     setError('');
 
@@ -141,6 +164,7 @@ export default function ContactForm() {
       }
 
       form.reset();
+      startedAt.current = Date.now();
       setFileName('');
       setStatus('success');
     } catch (submissionError) {
@@ -166,10 +190,14 @@ export default function ContactForm() {
           <div className="flex flex-col justify-between bg-[#102f3f] p-7 text-white sm:p-10 lg:p-12">
             <div>
               <p className="mb-5 font-mono text-xs uppercase text-[#ff9d2e]">
-                04 / {copy.eyebrow}
+                {copy.eyebrow}
               </p>
               <h2 className="max-w-lg text-3xl font-semibold leading-tight sm:text-4xl">{copy.title}</h2>
               <p className="mt-5 max-w-xl text-[15px] leading-7 text-slate-300">{copy.description}</p>
+              <div className="mt-8 flex flex-col items-start gap-4 text-sm">
+                <a href="tel:+79060799144" className="flex min-h-10 items-center gap-3 font-semibold"><Phone size={18} />+7 906 079 91 44</a>
+                <a href="mailto:info@metrislab.ru" className="flex min-h-10 items-center gap-3 underline underline-offset-4"><Mail size={18} />info@metrislab.ru</a>
+              </div>
             </div>
 
             <dl className="mt-12 grid grid-cols-2 border-t border-white/20 pt-6 text-sm">
@@ -206,13 +234,13 @@ export default function ContactForm() {
                 encType="multipart/form-data"
                 onSubmit={handleSubmit}
               >
-                <input type="hidden" name="started_at" value={FORM_LOADED_AT} />
+                <noscript><p className="mb-6 text-sm leading-6">{copy.noScript}</p></noscript>
                 <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
                   <label htmlFor="contact-website">Website</label>
                   <input id="contact-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
                 </div>
 
-                <fieldset disabled={status === 'loading'} className="space-y-7">
+                <fieldset disabled={!isInteractive || status === 'loading'} className="space-y-7">
                   <div className="grid gap-6 sm:grid-cols-2">
                     <label className="text-sm font-medium text-slate-700">
                       {copy.name} <span className="text-[#d96d00]">*</span>
@@ -234,11 +262,10 @@ export default function ContactForm() {
                         type="tel"
                         name="phone"
                         required
-                        minLength={7}
+                        minLength={10}
                         maxLength={25}
                         autoComplete="tel"
                         inputMode="tel"
-                        pattern="[+0-9()\s-]{7,25}"
                         placeholder={copy.phonePlaceholder}
                       />
                     </label>
@@ -259,12 +286,12 @@ export default function ContactForm() {
                   <label className="block text-sm font-medium text-slate-700">
                     {copy.request} <span className="text-[#d96d00]">*</span>
                     <textarea
+                      ref={requestRef}
                       className={`${fieldClass} min-h-24 resize-y leading-6`}
                       name="request"
                       required
                       minLength={3}
                       maxLength={1000}
-                      defaultValue={selectedModel ? `${selectedModel}, ` : ''}
                       placeholder={copy.requestPlaceholder}
                     />
                   </label>
@@ -308,7 +335,7 @@ export default function ContactForm() {
                     />
                     <span>
                       {copy.consent}{' '}
-                      <a href="/privacy" className="font-medium text-[#0b3a5b] underline underline-offset-2 hover:text-[#d96d00]">
+                      <a href="/privacy/" target="_blank" rel="noopener" className="font-medium text-[#0b3a5b] underline underline-offset-2 hover:text-[#d96d00]">
                         {copy.consentLink}
                       </a>
                     </span>

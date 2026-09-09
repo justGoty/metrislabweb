@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 interface PageMeta {
   title: string;
   description: string;
-  canonicalPath: string;
+  canonicalPath: string | null;
 }
 export function usePageMeta({ title, description, canonicalPath }: PageMeta) {
   useEffect(() => {
@@ -13,7 +13,9 @@ export function usePageMeta({ title, description, canonicalPath }: PageMeta) {
     descriptionElement?.setAttribute('content', description);
 
     const canonicalElement = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    canonicalElement?.setAttribute('href', `https://metrislab.ru${canonicalPath}`);
+    if (canonicalPath) canonicalElement?.setAttribute('href', `https://metrislab.ru${canonicalPath}`);
+    else canonicalElement?.remove();
+    document.querySelector('meta[name="robots"]')?.setAttribute('content', canonicalPath ? 'index, follow, max-image-preview:large' : 'noindex, follow');
 
     const openGraphTitle = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
     openGraphTitle?.setAttribute('content', title);
@@ -22,6 +24,9 @@ export function usePageMeta({ title, description, canonicalPath }: PageMeta) {
     openGraphDescription?.setAttribute('content', description);
 
     const openGraphUrl = document.querySelector<HTMLMetaElement>('meta[property="og:url"]');
-    openGraphUrl?.setAttribute('content', `https://metrislab.ru${canonicalPath}`);
+    if (canonicalPath) openGraphUrl?.setAttribute('content', `https://metrislab.ru${canonicalPath}`);
+    else openGraphUrl?.remove();
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', title);
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
   }, [canonicalPath, description, title]);
 }

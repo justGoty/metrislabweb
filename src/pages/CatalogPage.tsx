@@ -3,7 +3,6 @@ import { ArrowRight, ChevronDown, ChevronRight, Search, SearchX, SlidersHorizont
 import { useTranslation } from 'react-i18next';
 import GasAnalyzerCard from '../components/catalog/GasAnalyzerCard';
 import { gasAnalyzers, type GasAnalyzerType } from '../data/gasAnalyzers';
-import { usePageMeta } from '../lib/usePageMeta';
 
 type TypeFilter = 'all' | GasAnalyzerType;
 
@@ -21,12 +20,6 @@ export default function CatalogPage() {
   const [typeFilter, setTypeFilter] = useState<TypeFilter>('all');
   const [manufacturerFilter, setManufacturerFilter] = useState('all');
   const language = i18n.language.startsWith('en') ? 'en' : 'ru';
-
-  usePageMeta({
-    title: t('catalog.meta_title'),
-    description: t('catalog.meta_description'),
-    canonicalPath: '/catalog',
-  });
 
   const manufacturers = useMemo(() => {
     const byId = new Map<string, string>();
@@ -195,7 +188,7 @@ export default function CatalogPage() {
 
       <section className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-16">
         <div className="mb-6 flex min-h-10 flex-wrap items-center justify-between gap-4 border-b border-[#aeb9bf] pb-4">
-          <div className="flex items-center gap-3 text-sm text-[#344149]">
+          <div role="status" aria-live="polite" className="flex items-center gap-3 text-sm text-[#344149]">
             <span className="font-mono text-lg font-semibold text-[#0b4668]">
               {String(filteredAnalyzers.length).padStart(2, '0')}
             </span>
@@ -245,7 +238,6 @@ export default function CatalogPage() {
 
         <div className="mt-14 grid border-y border-[#aeb9bf] bg-white lg:grid-cols-12">
           <div className="border-b border-[#aeb9bf] p-6 sm:p-8 lg:col-span-8 lg:border-b-0 lg:border-r">
-            <p className="mb-3 font-mono text-xs text-[#0b4668]">SERVICE REQUEST / 01</p>
             <h2 className="mb-3 text-2xl font-semibold text-[#172027] sm:text-3xl">{t('catalog.not_listed_title')}</h2>
             <p className="max-w-2xl leading-7 text-[#56636b]">{t('catalog.not_listed_description')}</p>
           </div>

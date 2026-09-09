@@ -1,5 +1,4 @@
 import { Mail } from 'lucide-react';
-import { usePageMeta } from '../lib/usePageMeta';
 
 const sections = [
   {
@@ -53,12 +52,6 @@ const sections = [
 ];
 
 export default function PrivacyPage() {
-  usePageMeta({
-    title: 'Политика обработки персональных данных | МэтрисЛаб',
-    description: 'Политика ООО «МэтрисЛаб» в отношении обработки персональных данных пользователей сайта metrislab.ru.',
-    canonicalPath: '/privacy',
-  });
-
   return (
     <main className="bg-white pb-20 pt-[76px] sm:pt-[108px] lg:pb-28">
       <header className="border-b border-[#cbd3d8] bg-[#f2f5f6]">

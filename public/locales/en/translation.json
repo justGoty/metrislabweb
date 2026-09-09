@@ -1,5 +1,6 @@
 {
   "nav": {
+    "call_label": "Call: +7 906 079 91 44",
     "about": "Laboratory",
     "services": "Services",
     "process": "Process",
@@ -19,7 +20,7 @@
     "badge": "Metrology service for industrial companies",
     "headline": "Turnkey gas analyzer verification and service",
     "description": "We accept equipment, perform diagnostics and repairs, arrange verification, and return a complete document package.",
-    "cta_primary": "Estimate the work",
+    "cta_primary": "Request a quote and lead time",
     "cta_secondary": "Gas analyzer catalog",
     "image_alt": "Metris Lab work area for gas analyzer diagnostics and repair",
     "fact1": "Portable and fixed instruments",
@@ -137,7 +138,7 @@
     "breadcrumb_label": "Breadcrumbs",
     "breadcrumb_home": "Home",
     "eyebrow": "Equipment catalog",
-    "title": "Find your gas analyzer",
+    "title": "Gas analyzer catalog",
     "description": "Search by model or manufacturer and filter instruments by type. If a model is not yet listed, send its name to an engineer and we will check service feasibility.",
     "filters_label": "Catalog search and filters",
     "search_label": "Search catalog",

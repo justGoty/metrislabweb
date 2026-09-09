@@ -2,9 +2,8 @@ import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
 
-export default function Footer() {
+export default function Footer({ isHomePage }: { isHomePage: boolean }) {
   const { t } = useTranslation();
-  const isHomePage = window.location.pathname.replace(/\/+$/, '') === '';
   const homeHref = (anchor: string) => (isHomePage ? anchor : `/${anchor}`);
 
   return (
@@ -26,7 +25,7 @@ export default function Footer() {
               <a href={homeHref('#services')} className="hover:text-white">{t('footer.service1')}</a>
               <a href={homeHref('#services')} className="hover:text-white">{t('footer.service2')}</a>
               <a href={homeHref('#services')} className="hover:text-white">{t('footer.service3')}</a>
-              <a href="/catalog" className="hover:text-white">{t('nav.catalog')}</a>
+              <a href="/catalog/" className="hover:text-white">{t('nav.catalog')}</a>
             </nav>
           </div>
 
@@ -44,7 +43,7 @@ export default function Footer() {
           <div>
             <p>ООО «МэтрисЛаб» · ИНН 5012117115 · КПП 501201001</p>
             <p className="mt-2">© {new Date().getFullYear()} {t('footer.copyright')}</p>
-            <a href="/privacy" className="mt-3 inline-block text-[#d7e0e4] underline underline-offset-4 hover:text-white">
+            <a href="/privacy/" className="mt-3 inline-block text-[#d7e0e4] underline underline-offset-4 hover:text-white">
               {t('footer.privacy')}
             </a>
           </div>

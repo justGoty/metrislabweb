@@ -13,6 +13,11 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import CatalogPage from './pages/CatalogPage';
 import PrivacyPage from './pages/PrivacyPage';
+import NotFoundPage from './pages/NotFoundPage';
+import { restoreLanguagePreference } from './lib/i18n';
+import { usePageMeta } from './lib/usePageMeta';
+import { getPageMeta } from './data/pageMeta';
+import { useTranslation } from 'react-i18next';
 
 function ScrollToHash() {
   useEffect(() => {
@@ -47,17 +52,20 @@ function HomePage() {
   );
 }
 
-function App() {
-  const normalizedPath = window.location.pathname.replace(/\/+$/, '') || '/';
+function App({ pathname }: { pathname: string }) {
+  const { i18n } = useTranslation();
+  usePageMeta(getPageMeta(pathname, i18n.resolvedLanguage));
+  useEffect(restoreLanguagePreference, []);
+  const normalizedPath = pathname.replace(/\/+$/, '') || '/';
   const isCatalogPage = normalizedPath === '/catalog';
   const isPrivacyPage = normalizedPath === '/privacy';
 
   return (
     <>
       <ScrollToHash />
-      <Navbar />
-      {isCatalogPage ? <CatalogPage /> : isPrivacyPage ? <PrivacyPage /> : <HomePage />}
-      <Footer />
+      <Navbar isHomePage={normalizedPath === '/'} />
+      {isCatalogPage ? <CatalogPage /> : isPrivacyPage ? <PrivacyPage /> : normalizedPath === '/' ? <HomePage /> : <NotFoundPage />}
+      <Footer isHomePage={normalizedPath === '/'} />
       <ScrollToTop />
     </>
   );
