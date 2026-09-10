@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile, access } from 'node:fs/promises';
+import { readFile, access, readdir } from 'node:fs/promises';
 import test from 'node:test';
 import { parse } from 'parse5';
 
@@ -81,6 +81,25 @@ test('No stale build timestamp or misleading no-JS submission', async () => {
   assert.notEqual(attribute(tag(document, 'fieldset')[0], 'disabled'), undefined);
   assert.equal(tag(document, 'noscript').length, 1);
   assert.equal(content(tag(document, 'textarea')[0]), '');
+});
+
+test('Fonts are bundled locally, with their licenses', async () => {
+  const document = await readPage('index.html');
+  const styles = tag(document, 'link').filter(node => attribute(node, 'rel') === 'stylesheet');
+  assert(styles.length > 0);
+  for (const style of styles) {
+    const href = attribute(style, 'href');
+    assert(href.startsWith('/assets/'));
+    const css = await readFile(new URL(href.slice(1), dist), 'utf8');
+    assert(!css.includes('fonts.googleapis.com'));
+    assert(!css.includes('fonts.gstatic.com'));
+    assert(!css.includes('./files/'), 'Unresolved font package paths');
+    for (const family of ['Onest', 'Geologica', 'IBM Plex Mono']) assert(css.includes(family));
+    assert(css.includes('font-display:swap'));
+  }
+  const assets = await readdir(new URL('assets/', dist));
+  assert(assets.filter(file => file.endsWith('.woff2')).length >= 18, 'Font binaries missing from build');
+  for (const font of ['onest', 'geologica', 'ibm-plex-mono']) await access(new URL(`fonts/${font}-LICENSE.txt`, dist));
 });
 
 test('Sitemap uses canonical routes and the Apache error document exists', async () => {
