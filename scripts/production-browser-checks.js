@@ -13,7 +13,7 @@ async (page) => {
       blocked.push(request.method());
       return route.abort();
     }
-    if (new URL(request.url()).origin !== base) external.push(request.url());
+    if (!request.url().startsWith(`${base}/`)) external.push(request.url());
     return route.continue();
   };
   page.on('pageerror', onError);

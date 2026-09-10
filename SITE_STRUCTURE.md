@@ -1,6 +1,6 @@
 # Структура сайта МэтрисЛаб
 
-Актуальная схема локального проекта `metrislabweb`. Обновлено 9 сентября 2026 года.
+Актуальная схема проекта `metrislabweb`. Обновлено 10 сентября 2026 года; версия опубликована на metrislab.ru.
 
 ## Позиционирование
 
@@ -71,6 +71,8 @@ src/pages/PrivacyPage.tsx             политика обработки дан
 src/data/gasAnalyzers.ts              данные приборов
 scripts/create-static-routes.mjs      готовые HTML-страницы из компонентов React
 scripts/static-routes.test.mjs        проверки HTML, SEO и ресурсов сборки
+scripts/verify-production.mjs         HTTPS и SHA-256 публичных файлов после публикации
+scripts/production-browser-checks.js  браузерная проверка рабочего сайта без отправки форм
 scripts/browser-checks.js             браузерные проверки с имитацией ответа формы
 public/api/contact.php                 серверная обработка формы
 public/images/lab/                     фотографии лаборатории
