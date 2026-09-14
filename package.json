@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/create-static-routes.mjs",
     "test:static": "node --test scripts/static-routes.test.mjs",
+    "test:analytics": "node --test scripts/analytics-url.test.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

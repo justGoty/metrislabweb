@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { AlertCircle, CheckCircle2, FileUp, LoaderCircle, Mail, Phone, Send } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '../lib/useScrollReveal';
+import { trackAnalyticsGoal } from '../lib/analytics';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
@@ -14,6 +15,7 @@ export default function ContactForm() {
   const sectionRef = useScrollReveal();
   const formRef = useRef<HTMLFormElement>(null);
   const startedAt = useRef(0);
+  const formStarted = useRef(false);
   const requestRef = useRef<HTMLTextAreaElement>(null);
   const isInteractive = useSyncExternalStore(subscribe, () => true, () => false);
   const [status, setStatus] = useState<SubmissionStatus>('idle');
@@ -163,6 +165,8 @@ export default function ContactForm() {
         throw new Error(payload?.error || copy.genericError);
       }
 
+      trackAnalyticsGoal('lead_submit_success');
+      formStarted.current = false;
       form.reset();
       startedAt.current = Date.now();
       setFileName('');
@@ -233,6 +237,9 @@ export default function ContactForm() {
                 method="post"
                 encType="multipart/form-data"
                 onSubmit={handleSubmit}
+                onInput={() => {
+                  if (!formStarted.current) formStarted.current = trackAnalyticsGoal('lead_form_start');
+                }}
               >
                 <noscript><p className="mb-6 text-sm leading-6">{copy.noScript}</p></noscript>
                 <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">

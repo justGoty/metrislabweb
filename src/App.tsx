@@ -11,6 +11,7 @@ import FAQ from './components/FAQ';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import AnalyticsConsent from './components/AnalyticsConsent';
 import CatalogPage from './pages/CatalogPage';
 import PrivacyPage from './pages/PrivacyPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -67,6 +68,7 @@ function App({ pathname }: { pathname: string }) {
       {isCatalogPage ? <CatalogPage /> : isPrivacyPage ? <PrivacyPage /> : normalizedPath === '/' ? <HomePage /> : <NotFoundPage />}
       <Footer isHomePage={normalizedPath === '/'} />
       <ScrollToTop />
+      <AnalyticsConsent />
     </>
   );
 }

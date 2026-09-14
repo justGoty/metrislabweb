@@ -9,6 +9,8 @@ async (page) => {
   page.on('console', onConsole);
   await page.goto(base);
   await page.evaluate(() => localStorage.removeItem('i18nextLng'));
+  const denyAnalytics = page.getByRole('button', { name: 'Без аналитики', exact: true });
+  if (await denyAnalytics.isVisible()) await denyAnalytics.click();
 
   for (const [width, height] of [[320, 740], [390, 844], [768, 1024], [1440, 900]]) {
     await page.setViewportSize({ width, height });

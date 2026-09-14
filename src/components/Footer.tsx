@@ -1,6 +1,7 @@
 import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
+import { AnalyticsSettingsButton } from './AnalyticsConsent';
 
 export default function Footer({ isHomePage }: { isHomePage: boolean }) {
   const { t } = useTranslation();
@@ -46,6 +47,7 @@ export default function Footer({ isHomePage }: { isHomePage: boolean }) {
             <a href="/privacy/" className="mt-3 inline-block text-[#d7e0e4] underline underline-offset-4 hover:text-white">
               {t('footer.privacy')}
             </a>
+            <AnalyticsSettingsButton />
           </div>
           <p className="max-w-xl leading-5 sm:text-right">{t('footer.legal')}</p>
         </div>
