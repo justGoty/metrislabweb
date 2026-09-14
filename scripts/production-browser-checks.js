@@ -21,8 +21,11 @@ async (page) => {
   await page.route('**/*', guard);
   try {
     await page.goto(base);
-    await page.getByRole('button', { name: 'Настройки аналитики', exact: true }).click();
-    await page.getByRole('button', { name: 'Без аналитики', exact: true }).click();
+    const analyticsSettings = page.getByRole('button', { name: 'Настройки аналитики', exact: true });
+    const denyAnalytics = page.getByRole('button', { name: 'Без аналитики', exact: true });
+    await analyticsSettings.waitFor();
+    if (!await denyAnalytics.isVisible()) await analyticsSettings.click();
+    await denyAnalytics.click();
     for (const [width, height] of [[320, 740], [390, 844], [1440, 900]]) {
       await page.setViewportSize({ width, height });
       for (const [route, name] of [['/', 'home'], ['/catalog/', 'catalog'], ['/privacy/', 'privacy']]) {
